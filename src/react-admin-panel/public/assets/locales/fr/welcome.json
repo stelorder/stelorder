@@ -1,0 +1,91 @@
+{
+  "subscription": {
+    "plan": "Lite",
+    "status": {
+      "subscribed": "Abonné",
+      "inactive": "Inactif"
+    },
+    "open_app_btn": "Ouvrir STEL Order",
+    "show_plans": "Voir les plans"
+  },
+  "integration_status": {
+    "label_status": {
+      "paused_label": "Intégration en pause",
+      "active_label": "Intégration activée",
+      "blocked_label": "Intégration bloquée"
+    },
+    "btn": {
+      "activate_btn": "Activer l’intégration",
+      "pause_btn": "Mettre en pause",
+      "contract_now_btn": "Contracter maintenant"
+    }
+  },
+  "active_integration": {
+    "title": "Êtes-vous sûr de vouloir activer l'intégration ?",
+    "text_modal": "En activant l'intégration, vos documents seront mis à jour automatiquement.",
+    "btn": {
+      "cancel_btn": "Annuler",
+      "activate_integration_btn": "Activer l'intégration",
+      "loading_activate_integration_btn": "Activation en cours..."
+    }
+  },
+  "paused_integration": {
+    "title": "Êtes-vous sûr de vouloir suspendre l'intégration ?",
+    "text_modal": "En suspendant l'intégration, vous cesserez de recevoir les mises à jour automatiques de vos données. Vous pouvez la réactiver à tout moment.",
+    "btn": {
+      "cancel_btn": "Annuler",
+      "pause_integration_btn": "Suspendre l'intégration",
+      "loading_pause_integration_btn": "Suspension en cours..."
+    }
+  },
+  "stats_cards": {
+    "orders_title": "Commandes",
+    "invoices_title": "Factures",
+    "refunds_title": "Factures d'avoirs",
+    "sync_enabled": "Sync activée",
+    "sync_disabled": "Sync désactivée",
+    "no_created_documents": "Aucun document n'a été créé",
+    "month": [
+      "",
+      "Jan",
+      "Fév",
+      "Mar",
+      "Avr",
+      "Mai",
+      "Juin",
+      "Juil",
+      "Aoû",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Déc"
+    ]
+  },
+  "recent_documents": {
+    "title": "Documents créés au cours des 30 derniers jours",
+    "today_label": "Aujourd'hui",
+    "doc_type": {
+      "invoice": "Facture",
+      "order": "Commande",
+      "refund": "Facture d'avoir"
+    },
+    "status": {
+      "ordinary_invoice": [
+        "En attente",
+        "Brouillon",
+        "Partiellement encaissée",
+        "Encaisée"
+      ],
+      "refund_invoice": [
+        "En attente",
+        "Brouillon",
+        "Partiellement encaissée",
+        "Payée"
+      ]
+    }
+  },
+  "footer_stats": {
+    "products": "Produits",
+    "customers": "Clients"
+  }
+}

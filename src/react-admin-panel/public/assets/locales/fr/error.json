@@ -1,0 +1,14 @@
+{
+    "state": {
+        "title": "Oups !",
+        "subtitle": "Nous avons détecté un problème pouvant affecter votre expérience.",
+        "description": "Notre équipe y travaille. Nous nous excusons pour la gêne occasionnée et vous remercions de votre patience."
+    },
+    "modal_error": {
+        "title": "Une erreur s’est produite",
+        "message1": "L’action n’a pas pu être exécutée. Veuillez réessayer plus tard ou ",
+        "message2": "Cette page n’a pas pu être chargée en raison de problèmes techniques. Veuillez réessayer plus tard ou ",
+        "contact_support": "contactez le support.",
+        "button": "Accepter"
+    }
+}

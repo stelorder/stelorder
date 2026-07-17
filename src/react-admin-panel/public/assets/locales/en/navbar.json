@@ -1,0 +1,35 @@
+{
+  "menu": {
+    "dashboard": "Dashboard",
+    "order": "Orders",
+    "invoices": "Invoices",
+    "settings": "Settings",
+    "work_orders": "Jobs"
+  },
+  "options": {
+    "reset_config": "Reset settings",
+    "delete_integration": "Delete integration"
+  },
+  "reset_config": {
+    "title": "Are you sure you want to reset the configuration?",
+    "message_text": "The configuration will be reset to default values and you will lose the current configuration.",
+    "btn": {
+      "cancelled_btn": "Cancel",
+      "reset_btn": "Reset",
+      "loading_reset_btn": "Resetting..."
+    }
+  },
+  "completed_operation": "Saved successfully!",
+  "reestablished_config": "Configuration reset",
+  "delete_integration": {
+    "title": "Are you sure you want to delete this integration?",
+    "message_text": "By accepting, the information of this integration will be deleted and you will not be able to recover it.",
+    "title_write_text_delete": "Type \"delete permanently\" here",
+    "placeholder_write_text_delete": "Delete permanently",
+    "btn": {
+      "cancelled_btn": "Cancel",
+      "delete_btn": "Delete permanently",
+      "loading_delete_btn": "Deleting..."
+    }
+  }
+}

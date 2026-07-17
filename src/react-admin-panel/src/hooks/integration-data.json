@@ -1,0 +1,49 @@
+{
+    "integration-status": "ACTIVE",
+    "subscription-status": "SUSCRITO",
+    "sync-orders": true,
+    "sync-invoices": true,
+    "sync-refund-invoices": true,
+    "totals": {
+      "PRODUCT": 5,
+      "SALESORDER": [
+        {
+          "2025-11": {
+            "amount": 1,
+            "total": 31.46
+          }
+        }
+      ],
+      "ORDINARYINVOICE": [
+        {
+          "2025-02": {
+            "amount": 1,
+            "total": 85
+          }
+        },
+        {
+          "2025-10": {
+            "amount": 1,
+            "total": 79.86
+          }
+        },
+        {
+          "2025-11": {
+            "amount": 2,
+            "total": 163.35
+          }
+        }
+      ],
+      "REFUNDINVOICE": [
+        {
+          "2025-11": {
+            "amount": 1,
+            "total": -50
+          }
+        }
+      ],
+      "CLIENT": 1
+    },
+    "plan": "BUSINESS",
+    "integration-enabled": true
+  }

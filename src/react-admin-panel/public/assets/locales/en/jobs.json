@@ -1,0 +1,119 @@
+{
+  "empty_table": "No jobs in history.",
+  "filters": {
+    "global_search": "Search",
+    "filter_btn": "Filter"
+  },
+  "columns": {
+    "type": "Type",
+    "date": "Date and time",
+    "action": "Action",
+    "direction": "Direction",
+    "status": "Status",
+    "subjobs": "Subjobs"
+  },
+  "placeholders": {
+    "column_search": "Search"
+  },
+  "row_values": {
+    "direction": {
+      "to_primary": "From WooCommerce to Order",
+      "to_secondary": "From Order to WooCommerce"
+    },
+    "state_event": {
+      "completed": "Completed",
+      "failed": "Failed",
+      "info": "Informative",
+      "uncommited": "Pending"
+    },
+    "state_type": {
+      "product": "Product",
+      "sales_order": "Order",
+      "ordinary_invoice": "Invoice",
+      "refund_invoice": "Refund Invoice"
+    },
+    "action_type": {
+      "create": "Creation",
+      "verifactu": "Verifactu Issuance",
+      "update": "Update",
+      "pdf": "PDF Generation",
+      "email": "Email Sending"
+    },
+    "subjob_type": {
+      "create_product": [
+        "product created",
+        "products created"
+      ],
+      "create_customer": [
+        "customer created",
+        "customers created"
+      ],
+      "create_address": [
+        "address created",
+        "addresses created"
+      ],
+      "update_product": [
+        "product updated",
+        "products updated"
+      ],
+      "update_customer": [
+        "customer updated",
+        "customers updated"
+      ],
+      "update_address": [
+        "address updated",
+        "addresses updated"
+      ],
+      "sync_customer": [
+        "customer synchronized",
+        "customers synchronized"
+      ],
+      "sync_product": [
+        "product synchronized",
+        "products synchronized"
+      ],
+      "sync_address": [
+        "address synchronized",
+        "addresses synchronized"
+      ],
+      "sync_salesorder": [
+        "order synchronized",
+        "orders synchronized"
+      ],
+      "sync_customer_list": [
+        "customer list synchronized",
+        "customer lists synchronized"
+      ],
+      "sync_product_list": [
+        "product list synchronized",
+        "product lists synchronized"
+      ],
+      "sync_address_list": [
+        "address list synchronized",
+        "address lists synchronized"
+      ],
+      "sync_partner": [
+        "parent document synchronized",
+        "parent documents synchronized"
+      ]
+    }
+  },
+  "event_modal": {
+    "question": "Do you have questions?",
+    "contact_support": "Contact support",
+    "btn_accept": "Accept",
+    "text": "We were unable to complete the synchronization of your data. This may be due to a temporary connection problem or a system error.",
+    "error_modal": {
+      "title": "Synchronization failure"
+    },
+    "info_modal": {
+      "title": "Synchronization information"
+    }
+  },
+  "pagination": {
+    "first": "First",
+    "last": "Last",
+    "perPage": "per page",
+    "elements_template": "Showing {from} to {to} of {count}"
+  }
+}

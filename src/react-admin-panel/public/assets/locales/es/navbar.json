@@ -1,0 +1,34 @@
+{
+  "menu": {
+    "dashboard": "Inicio",
+    "order": "Pedidos",
+    "invoices": "Facturas",
+    "settings": "Configuración",
+    "work_orders": "Trabajos"
+  },
+  "options": {
+    "reset_config": "Restablecer configuración",
+    "delete_integration": "Eliminar integración"
+  },
+  "reset_config": {
+    "title": "¿Estás seguro de que quieres restablecer la configuración?",
+    "message_text": "La configuración se restablecerá a los valores predeterminados y perderás la configuración actual.",
+    "btn": {
+      "cancelled_btn": "Cancelar",
+      "reset_btn": "Restablecer",
+      "loading_reset_btn": "Restableciendo..."
+    }
+  },
+  "reestablished_config": "Configuración restablecida",
+  "delete_integration": {
+    "title": "¿Estás seguro de que quieres eliminar esta integración?",
+    "message_text": "Al aceptar se eliminará la información de esta integración y no podrás recuperarla.",
+    "title_write_text_delete": "Escribe aquí \"eliminar definitivamente\"",
+    "placeholder_write_text_delete": "Eliminar definitivamente",
+    "btn": {
+      "cancelled_btn": "Cancelar",
+      "delete_btn": "Eliminar definitivamente",
+      "loading_delete_btn": "Eliminando..."
+    }
+  }
+}

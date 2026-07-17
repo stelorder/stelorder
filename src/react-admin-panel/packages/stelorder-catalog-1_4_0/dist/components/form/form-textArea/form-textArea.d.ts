@@ -1,0 +1,22 @@
+import { default as React } from 'react';
+import { HtmlProps } from '../../styles/theme';
+import { TextAreaStyles, TextAreaVariant } from './form-textArea-types';
+export type FormTextAreaProps = {
+    isValid?: boolean;
+    isInvalid?: boolean;
+    variant?: TextAreaVariant;
+    width?: string;
+    height?: string;
+    minHeight?: string;
+    maxHeight?: string;
+    styles?: TextAreaStyles;
+    disabled?: boolean;
+    placeholder?: string;
+    name?: string;
+    value?: string;
+    ariaLabel?: string;
+    ariaLabelledby?: string;
+    onChange?: (value: string) => void;
+};
+declare const FormTextArea: React.FC<FormTextAreaProps & HtmlProps<HTMLDivElement>>;
+export default FormTextArea;

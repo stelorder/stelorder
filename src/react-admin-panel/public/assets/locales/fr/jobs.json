@@ -1,0 +1,120 @@
+{
+  "empty_table": "Aucun job dans l’historique.",
+  "filters": {
+    "global_search": "Rechercher",
+    "filter_btn": "Filtrer"
+  },
+  "columns": {
+    "type": "Type",
+    "date": "Date et heure",
+    "action": "Action",
+    "direction": "Direction",
+    "status": "Statut",
+    "subjobs": "Sous-tâches"
+  },
+  "placeholders": {
+    "column_search": "Rechercher"
+  },
+  "row_values": {
+    "direction": {
+      "to_primary": "De WooCommerce à Order",
+      "to_secondary": "De Order à WooCommerce"
+    },
+    "state_event": {
+      "completed": "Terminé",
+      "failed": "Échoué",
+      "info": "Informatif",
+      "uncommited": "En attente"
+    },
+    "state_type": {
+      "product": "Produit",
+      "sales_order": "Commande",
+      "ordinary_invoice": "Facture",
+      "refund_invoice": "Facture de remboursement"
+    },
+    "action_type": {
+      "create": "Création",
+      "verifactu": "Émission Verifactu",
+      "update": "Mise à jour",
+      "pdf": "Génération de PDF",
+      "email": "Envoi d’e-mail"
+    },
+    "subjob_type": {
+      "create_product": [
+        "produit créé",
+        "produits créés"
+      ],
+      "create_customer": [
+        "client créé",
+        "clients créés"
+      ],
+      "create_address": [
+        "adresse créée",
+        "adresses créées"
+      ],
+      "update_product": [
+        "produit mis à jour",
+        "produits mis à jour"
+      ],
+      "update_customer": [
+        "client mis à jour",
+        "clients mis à jour"
+      ],
+      "update_address": [
+        "adresse mise à jour",
+        "adresses mises à jour"
+      ],
+      "sync_customer": [
+        "client synchronisé",
+        "clients synchronisés"
+      ],
+      "sync_product": [
+        "produit synchronisé",
+        "produits synchronisés"
+      ],
+      "sync_address": [
+        "adresse synchronisée",
+        "adresses synchronisées"
+      ],
+      "sync_salesorder": [
+        "commande synchronisée",
+        "commandes synchronisées"
+      ],
+      "sync_customer_list": [
+        "liste de clients synchronisée",
+        "listes de clients synchronisées"
+      ],
+      "sync_product_list": [
+        "liste de produits synchronisée",
+        "listes de produits synchronisées"
+      ],
+      "sync_address_list": [
+        "liste d’adresses synchronisée",
+        "listes d’adresses synchronisées"
+      ],
+      "sync_partner": [
+        "document parent synchronisé",
+        "documents parent synchronisés"
+      ]
+    }
+  },
+  "event_modal": {
+    "question": "Vous avez des questions?",
+    "contact_support": "Contacter le support",
+    "btn_accept": "Accepter",
+    "text": "Nous n’avons pas pu terminer la synchronisation de vos données. Cela peut être dû à un problème de connexion temporaire ou à une erreur du système.",
+    "error_modal": {
+      "title": "Échec de la synchronisation"
+    },
+    "info_modal": {
+      "title": "Informations de synchronisation"
+    }
+  },
+  "pagination": {
+    "first": "Première",
+    "last": "Dernière",
+    "perPage": "par page",
+    "elements_template": "Affichage de {from} à {to} sur {count}"
+  }
+
+}

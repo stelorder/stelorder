@@ -1,0 +1,26 @@
+parameters:
+    level: 2
+    ignoreErrors:
+        - '#PHPDoc*#'
+        - '#PHPDoc*#'
+        - '#has invalid type .*T#'
+        - '#has unknown class .*T as its type#'
+        - '#referenced with incorrect case: Stel\\Verifactu\\Services\\DTOs\\SaveWebhookDto#'
+        - '#Template type T of method .* is not referenced in a parameter#'
+        - '#Function remove_filter invoked with 4 parameters, 2-3 required#'
+        - '#Variable \$persistentWebhooks in empty\(\) always exists and is always falsy#'
+        - '#Access to constant (VARIABLE|VARIATION) on an unknown class Automattic\\WooCommerce\\Enums\\ProductType#'
+        -
+            identifier: requireOnce.fileNotFound
+            paths:
+                - ../src/App.php
+                - ../src/Services/ImageService.php
+    bootstrapFiles:
+        - phpstan-bootstrap.php
+    paths:
+        - src/
+    scanFiles:
+        - ../vendor/php-stubs/wordpress-stubs/wordpress-stubs.php 
+        - ../vendor/php-stubs/woocommerce-stubs/woocommerce-stubs.php
+        - ../vendor/php-stubs/woocommerce-stubs/woocommerce-packages-stubs.php
+    reportUnmatchedIgnoredErrors: false

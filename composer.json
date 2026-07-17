@@ -1,0 +1,102 @@
+{
+    "name": "stel/verifactu",
+    "description": "Connect WooCommerce with STEL Order and sync orders, invoices, customers and products. To access the plugin's source code and the development and compilation tools, you can visit the GitHub repository at https://github.com/stelorder/stelorder",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Stel\\Verifactu\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "josemanuelptstelorder",
+            "email": "josemanuelpereztoral.stelorder@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^4.0",
+        "phpcompatibility/php-compatibility": "dev-develop",
+        "phpstan/phpstan": "^2.1",
+        "php-stubs/wordpress-stubs": "6.5.0",
+        "php-stubs/woocommerce-stubs": "9.2.1",
+        "brianhenryie/strauss": "^0.20"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "extra": {
+        "strauss": {
+            "target_directory": "vendor-prefixed",
+            "namespace_prefix": "Stel\\Verifactu\\Vendor\\",
+            "classmap_prefix": "Stel_Verifactu_Vendor_",
+            "packages": [
+                "symfony/serializer",
+                "symfony/validator",
+                "symfony/property-access",
+                "symfony/property-info",
+                "phpdocumentor/reflection-docblock"
+            ],
+            "exclude_from_copy": {
+                "file_patterns": [
+                    "#^doctrine/deprecations/src/PHPUnit/#",
+                    "#^symfony/translation-contracts/Test/#",
+                    "#^symfony/validator/Test/#",
+                    "#^phpdocumentor/reflection-common/\\.github/#"
+                ]
+            },
+            "delete_vendor_packages": true,
+            "update_call_sites": true,
+            "source_directory": "src/"
+        }
+    },
+    "scripts": {
+        "codesniffer": "./vendor/bin/phpcs --standard=PHPCompatibility --extensions=php --runtime-set testVersion 8.2- src/",
+        "phpstan": "./vendor/bin/phpstan analyse -c phpstan/phpstan.neon src/ stel-order.php",
+        "build": [
+            "# 1. Descargar Strauss PHAR",
+            "mkdir -p tools",
+            "curl -L https://github.com/BrianHenryIE/strauss/releases/latest/download/strauss.phar -o tools/strauss.phar",
+            "chmod +x tools/strauss.phar",
+
+            "# 2. Instalar sin dev directamente",
+            "composer install --no-dev --optimize-autoloader",
+
+            "# 3. Ejecutar Strauss sobre vendor/ limpio",
+            "php tools/strauss.phar",
+
+            "# 4. Preparar directorio de salida",
+            "rm -f stel-order.zip",
+            "mkdir -p build/plugin",
+
+            "# 5. Copiar assets del panel React",
+            "cd src/react-admin-panel && npm install && npm run build",
+            "cp -r src/react-admin-panel/dist/assets build/plugin/assets",
+            "rm -rf src/react-admin-panel/dist",
+
+            "# 6. Copiar archivos del plugin",
+            "cp stel-order.php build/plugin/stel-order.php",
+            "cp -r src build/plugin/",
+            "rm -rf build/plugin/src/react-admin-panel",
+            "cp -r vendor build/plugin/vendor",
+            "cp -r vendor-prefixed build/plugin/vendor-prefixed",
+            "cp composer.json build/plugin/composer.json",
+            "cp readme.txt build/plugin/readme.txt",
+
+            "# 7. Generar zip",
+            "cd build/plugin && zip -r ../../stel-order.zip .",
+
+            "# 8. Limpieza",
+            "rm -rf build vendor-prefixed"
+        ]
+    },
+    "require": {
+        "symfony/serializer": "^7.4",
+        "symfony/validator": "^7.4",
+        "symfony/property-access": "^7.4",
+        "symfony/property-info": "^7.4",
+        "phpdocumentor/reflection-docblock": "^6.0"
+    }
+}

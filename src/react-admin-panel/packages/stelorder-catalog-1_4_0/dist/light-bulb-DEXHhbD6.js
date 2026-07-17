@@ -1,0 +1,6 @@
+import * as e from "react";
+const t = (l) => /* @__PURE__ */ e.createElement("svg", { width: "1em", height: "1em", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", ...l }, /* @__PURE__ */ e.createElement("g", null, /* @__PURE__ */ e.createElement("g", null, /* @__PURE__ */ e.createElement("path", { fillRule: "evenodd", clipRule: "evenodd", d: "M12 3.75C9.10051 3.75 6.75 6.10051 6.75 9C6.75 10.9423 7.80436 12.6392 9.37554 13.5481C9.60729 13.6822 9.75 13.9296 9.75 14.1973V16.25H14.25V14.1973C14.25 13.9296 14.3927 13.6822 14.6245 13.5481C16.1956 12.6392 17.25 10.9423 17.25 9C17.25 6.10051 14.8995 3.75 12 3.75ZM5.25 9C5.25 5.27208 8.27208 2.25 12 2.25C15.7279 2.25 18.75 5.27208 18.75 9C18.75 11.3413 17.5576 13.4033 15.75 14.6132V17C15.75 17.4142 15.4142 17.75 15 17.75H9C8.58579 17.75 8.25 17.4142 8.25 17V14.6132C6.44235 13.4033 5.25 11.3413 5.25 9Z", fill: "#FD893A" }), /* @__PURE__ */ e.createElement("path", { fillRule: "evenodd", clipRule: "evenodd", d: "M8.25 20C8.25 19.5858 8.58579 19.25 9 19.25H15C15.4142 19.25 15.75 19.5858 15.75 20C15.75 20.4142 15.4142 20.75 15 20.75H9C8.58579 20.75 8.25 20.4142 8.25 20Z", fill: "#FD893A" }))));
+export {
+  t as default
+};
+//# sourceMappingURL=light-bulb-DEXHhbD6.js.map

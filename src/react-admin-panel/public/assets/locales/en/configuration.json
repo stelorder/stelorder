@@ -1,0 +1,101 @@
+{
+  "completed_operation": "Saved successfully!",
+  "by_default": "By default",
+  "header": {
+    "btn": {
+      "save_btn": "Save",
+      "loading_btn": "Saving...",
+      "edit_btn": "Edit"
+    },
+    "status_active": "Integration activated"
+  },
+  "integration_status": {
+    "label_status": {
+      "paused_label": "Integration paused",
+      "active_label": "Integration activated",
+      "blocked_label": "Integration blocked"
+    }
+  },
+  "orders_section": {
+    "title": "Orders",
+    "auto_sync_toggle": "Automatic synchronization:",
+    "reference_label": "Order reference",
+    "sync_status_label": "Order synchronization",
+    "sync_placeholder": "Statuses in which it is synchronized"
+  },
+  "invoices_section": {
+    "title": "Invoices",
+    "auto_sync_toggle": "Automatic synchronization:",
+    "reference_label": "Invoice reference",
+    "refund_reference_label": "Refund invoice reference",
+    "sync_status_label": "Invoice synchronization",
+    "sync_placeholder": "Statuses in which it is synchronized",
+    "send_method_label": "How will the invoice be sent to the customer?",
+    "location": {
+      "none": "It will not be sent",
+      "email": "Email from STEL Order"
+    },
+    "templates_card": {
+      "text": "You can customize your invoices and sending emails from STEL Order",
+      "button": "My STEL Order Templates"
+    }
+  },
+  "verifactu_section": {
+    "title": "Verifactu",
+    "activate_toggle": "Activate Verifactu:",
+    "status_label": "Status:",
+    "status_pending": "Pending your authorization",
+    "status_verified": "Verified",
+    "auth_card": {
+      "title": "Authorize STEL to operate as Verifactu software",
+      "description_part1": "For STEL Order to operate as Verifactu software, you must authorize STEL Solutions, S.L with NIF ",
+      "description_part2": " to communicate with the AEAT on your behalf. It is a simple and reversible process, explained step by step in the guide and/or video.",
+      "authorize_btn": "Authorize from the AEAT",
+      "download_guide_btn": "Download guide",
+      "note_part1": "Note:",
+      "note_part2": " If you have already authorized us and cannot continue, it is because we are verifying your authorization. Please come back later to complete the configuration and start working with Verifactu."
+    },
+    "config_card": {
+      "text": "Once authorized, you will be able to select your Verifactu option and make other configurations from ",
+      "button": "Configure in STEL Order"
+    },
+    "help_card": {
+      "text": "I’m Alejandra from STEL Order. If you have any questions, you can contact our team",
+      "button": "Need help?"
+    },
+    "verified_config": {
+      "description": {
+        "default": "Select your Verifactu option in ",
+        "selected_yes_verifactu": "You have selected Yes Verifactu. To modify it, go to ",
+        "selected_no_verifactu": "You have selected No Verifactu. To modify it, go to "
+      },
+      "yes_option": {
+        "title": "Yes Verifactu",
+        "text_1": "Your invoice records are generated and sent to the AEAT in real time.",
+        "text_2": "Once your first record is sent, you must remain in this option at least until the next calendar year."
+      },
+      "no_option": {
+        "title": "No Verifactu",
+        "text_1": "Your invoice records are generated and stored in real time, but are only sent to the AEAT upon request.",
+        "text_2": "You can switch to the “Yes Verifactu” option at any time."
+      },
+      "auto_verifactu": {
+        "title": "Is Verifactu issued automatically?",
+        "no": "No, I will issue Verifactu from my STEL Order",
+        "yes": "Yes, issue Verifactu automatically for all my orders"
+      }
+    }
+  },
+  "other_settings_section": {
+    "title": "Other settings",
+    "client_ref": "Customer reference",
+    "product_ref": "Product reference",
+    "warehouse": "Warehouse",
+    "warehouse_placeholder": "Main warehouse"
+  },
+  "modal_save": "Saved successfully!",
+  "modal_select_state": {
+    "order_title": "Select the orders statuses to synchronize",
+    "invoice_title": "Select the invoice statuses to synchronize"
+  }
+}

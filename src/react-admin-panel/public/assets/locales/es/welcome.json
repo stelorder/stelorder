@@ -1,0 +1,91 @@
+{
+  "subscription": {
+    "plan": "Lite",
+    "status": {
+      "subscribed": "Suscrito",
+      "inactive": "Inactivo"
+    },
+    "open_app_btn": "Abrir STEL Order",
+    "show_plans": "Ver planes"
+  },
+  "integration_status": {
+    "label_status": {
+      "paused_label": "Integración pausada",
+      "active_label": "Integración activada",
+      "blocked_label": "Integración bloqueada"
+    },
+    "btn": {
+      "activate_btn": "Activar integración",
+      "pause_btn": "Pausar integración",
+      "contract_now_btn": "Contratar ahora"
+    }
+  },
+  "active_integration": {
+    "title": "¿Estás seguro de que quieres activar la integración?",
+    "text_modal": "Al activar la integración, tus documentos se actualizarán automáticamente.",
+    "btn": {
+      "cancel_btn": "Cancelar",
+      "activate_integration_btn": "Activar integración",
+      "loading_activate_integration_btn": "Activando..."
+    }
+  },
+  "paused_integration": {
+    "title": "¿Estás seguro de que quieres pausar la integración?",
+    "text_modal": "Al pausar la integración, dejarás de recibir actualizaciones automáticas de tus datos. Puedes reactivarla en cualquier momento.",
+    "btn": {
+      "cancel_btn": "Cancelar",
+      "pause_integration_btn": "Pausar integración",
+      "loading_pause_integration_btn": "Pausando..."
+    }
+  },
+  "stats_cards": {
+    "orders_title": "Pedidos",
+    "invoices_title": "Facturas",
+    "refunds_title": "Facturas de abono",
+    "sync_enabled": "Sinc. activada",
+    "sync_disabled": "Sinc. desactivada",
+    "no_created_documents": "No hay documentos creados",
+    "month": [
+      "",
+      "Ene",
+      "Feb",
+      "Mar",
+      "Abr",
+      "May",
+      "Jun",
+      "Jul",
+      "Ago",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dic"
+    ]
+  },
+  "recent_documents": {
+    "title": "Documentos creados en los últimos 30 días",
+    "today_label": "Hoy",
+    "doc_type": {
+      "invoice": "Factura",
+      "order": "Pedido",
+      "refund": "Factura de abono"
+    },
+    "status": {
+      "ordinary_invoice": [
+        "Pendiente",
+        "Borrador",
+        "Parcialmente cobrada",
+        "Cobrada"
+      ],
+      "refund_invoice": [
+        "Pendiente",
+        "Borrador",
+        "Parcialmente pagada",
+        "Pagada"
+      ]
+    }
+  },
+  "footer_stats": {
+    "products": "Productos",
+    "customers": "Clientes"
+  }
+}

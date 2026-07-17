@@ -1,0 +1,14 @@
+{
+    "state": {
+        "title": "Oops!",
+        "subtitle": "We’ve detected a problem that may affect your experience.",
+        "description": "Our team is working on it. We apologize for the inconvenience and thank you for your patience."
+    },
+    "modal_error": {
+        "title": "An error has occurred",
+        "message1": "The action could not be completed. Please try again later or ",
+        "message2": "This page could not be loaded due to technical issues. Please try again later or ",
+        "contact_support": "contact support.",
+        "button": "Accept"
+    }
+}

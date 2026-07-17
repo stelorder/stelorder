@@ -1,0 +1,91 @@
+{
+  "subscription": {
+    "plan": "Lite",
+    "status": {
+      "subscribed": "Subscribed",
+      "inactive": "Inactive"
+    },
+    "open_app_btn": "Open STEL Order",
+    "show_plans": "View plans"
+  },
+  "integration_status": {
+    "label_status": {
+      "paused_label": "Integration paused",
+      "active_label": "Integration activated",
+      "blocked_label": "Integration blocked"
+    },
+    "btn": {
+      "activate_btn": "Activate integration",
+      "pause_btn": "Pause integration",
+      "contract_now_btn": "Contract now"
+    }
+  },
+  "active_integration": {
+    "title": "Are you sure you want to activate the integration?",
+    "text_modal": "By activating the integration, your documents will be updated automatically.",
+    "btn": {
+      "cancel_btn": "Cancel",
+      "activate_integration_btn": "Activate integration",
+      "loading_activate_integration_btn": "Activating..."
+    }
+  },
+  "paused_integration": {
+    "title": "Are you sure you want to pause the integration?",
+    "text_modal": "By pausing the integration, you will stop receiving automatic updates of your data. You can reactivate it at any time.",
+    "btn": {
+      "cancel_btn": "Cancel",
+      "pause_integration_btn": "Pause integration",
+      "loading_pause_integration_btn": "Pausing..."
+    }
+  },
+  "stats_cards": {
+    "orders_title": "Orders",
+    "invoices_title": "Invoices",
+    "refunds_title": "Refund invoices",
+    "sync_enabled": "Sync enabled",
+    "sync_disabled": "Sync disabled",
+    "no_created_documents": "No documents have been created",
+    "month": [
+      "",
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ]
+  },
+  "recent_documents": {
+    "title": "Documents created in the last 30 days",
+    "today_label": "Today",
+    "doc_type": {
+      "invoice": "Invoice",
+      "order": "Order",
+      "refund": "Credit Note"
+    },
+    "status": {
+      "ordinary_invoice": [
+        "Pending",
+        "Draft",
+        "Partial payment",
+        "Paid"
+      ],
+      "refund_invoice": [
+        "Pending",
+        "Draft",
+        "Partial payment",
+        "Paid"
+      ]
+    }
+  },
+  "footer_stats": {
+    "products": "Products",
+    "customers": "Customers"
+  }
+}

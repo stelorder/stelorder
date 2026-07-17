@@ -1,0 +1,24 @@
+{
+  "header": {
+    "main_title": "Make your business and your life easier",
+    "reviews_badge": "3,000+ reviews",
+    "downloads_badge_part1": "200k+",
+    "downloads_badge_part2": "Downloads"
+  },
+  "login_card": {
+    "title": "Do you have a STEL Order account?",
+    "description": "Sign in to STEL Order to connect it to WooCommerce",
+    "button_label": "Sign in",
+    "loading_button_label": "Signing in..."
+  },
+  "register_card": {
+    "title": "Don’t have a STEL Order account?",
+    "description": "The highest-rated management and invoicing software in Spain",
+    "button_label": "Sign up",
+    "loading_button_label": "Signing up..."
+  },
+  "video_section": {
+    "title": "Videos",
+    "description": "Learn more about STEL Order and the Verifactu plugin"
+  }
+}

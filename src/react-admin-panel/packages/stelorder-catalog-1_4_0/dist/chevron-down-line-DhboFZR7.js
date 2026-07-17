@@ -1,0 +1,6 @@
+import * as e from "react";
+const l = (t) => /* @__PURE__ */ e.createElement("svg", { width: "1em", height: "1em", viewBox: "0 0 18 18", fill: "none", xmlns: "http://www.w3.org/2000/svg", ...t }, /* @__PURE__ */ e.createElement("path", { fillRule: "evenodd", clipRule: "evenodd", d: "M4.10225 6.35225C4.32192 6.13258 4.67808 6.13258 4.89775 6.35225L9 10.4545L13.1023 6.35225C13.3219 6.13258 13.6781 6.13258 13.8977 6.35225C14.1174 6.57192 14.1174 6.92808 13.8977 7.14775L9.39775 11.6477C9.17808 11.8674 8.82192 11.8674 8.60225 11.6477L4.10225 7.14775C3.88258 6.92808 3.88258 6.57192 4.10225 6.35225Z", fill: "#69697F" }));
+export {
+  l as default
+};
+//# sourceMappingURL=chevron-down-line-DhboFZR7.js.map

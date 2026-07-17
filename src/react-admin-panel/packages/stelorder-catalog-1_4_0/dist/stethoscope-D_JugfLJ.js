@@ -1,0 +1,6 @@
+import * as e from "react";
+const t = (l) => /* @__PURE__ */ e.createElement("svg", { width: "1em", height: "1em", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", ...l }, /* @__PURE__ */ e.createElement("g", null, /* @__PURE__ */ e.createElement("path", { fillRule: "evenodd", clipRule: "evenodd", d: "M3.25 10C3.25 9.58579 3.58579 9.25 4 9.25H9C11.0711 9.25 12.75 10.9289 12.75 13V20C12.75 20.4142 12.4142 20.75 12 20.75H8.88889V19.25H11.25V13C11.25 11.7574 10.2426 10.75 9 10.75H4.75V14.0909H3.25V10Z", fill: "#282848" }), /* @__PURE__ */ e.createElement("path", { fillRule: "evenodd", clipRule: "evenodd", d: "M4.5 16.75C3.5335 16.75 2.75 17.5335 2.75 18.5C2.75 19.4665 3.5335 20.25 4.5 20.25C5.4665 20.25 6.25 19.4665 6.25 18.5C6.25 17.5335 5.4665 16.75 4.5 16.75ZM1.25 18.5C1.25 16.7051 2.70507 15.25 4.5 15.25C6.29493 15.25 7.75 16.7051 7.75 18.5C7.75 20.2949 6.29493 21.75 4.5 21.75C2.70507 21.75 1.25 20.2949 1.25 18.5Z", fill: "#282848" }), /* @__PURE__ */ e.createElement("path", { fillRule: "evenodd", clipRule: "evenodd", d: "M13.2409 5.17651C12.2453 2.83285 8.75 3.54714 8.75 6.08774V10.307H7.25V6.08774C7.25 1.90824 12.989 0.747268 14.6215 4.59001L20.8492 19.2498H23V20.7498H16.8235V19.2498H19.2195L13.2409 5.17651Z", fill: "#282848" })));
+export {
+  t as default
+};
+//# sourceMappingURL=stethoscope-D_JugfLJ.js.map

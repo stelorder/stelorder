@@ -1,0 +1,24 @@
+{
+  "header": {
+    "main_title": "Haz tu negocio y tu vida más fácil",
+    "reviews_badge": "+3000 reseñas",
+    "downloads_badge_part1": "200 mil+",
+    "downloads_badge_part2": "Descargas"
+  },
+  "login_card": {
+    "title": "¿Tienes cuenta de STEL Order?",
+    "description": "Inicia sesión en STEL Order para conectarlo a WooCommerce",
+    "button_label": "Iniciar sesión",
+    "loading_button_label": "Iniciando..."
+  },
+  "register_card": {
+    "title": "¿No tienes cuenta de STEL Order?",
+    "description": "El software de gestión y facturación mejor valorado en España",
+    "button_label": "Registrarse",
+    "loading_button_label": "Registrando..."
+  },
+  "video_section": {
+    "title": "Vídeos",
+    "description": "Conoce mejor STEL Order y el plugin de Verifactu"
+  }
+}

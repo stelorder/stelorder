@@ -1,0 +1,101 @@
+{
+  "completed_operation": "¡Guardado correctamente!",
+  "by_default": "Por defecto",
+  "header": {
+    "btn": {
+      "save_btn": "Guardar",
+      "loading_btn": "Guardando...",
+      "edit_btn": "Editar"
+    },
+    "status_active": "Integración activada"
+  },
+  "orders_section": {
+    "title": "Pedidos",
+    "auto_sync_toggle": "Sincronización automática:",
+    "reference_label": "Referencia para pedidos",
+    "sync_status_label": "Sincronización de pedidos",
+    "sync_placeholder": "Estados en los que se sincroniza"
+  },
+  "integration_status": {
+    "label_status": {
+      "paused_label": "Integración pausada",
+      "active_label": "Integración activada",
+      "blocked_label": "Integración bloqueada"
+    }
+  },
+  "invoices_section": {
+    "title": "Facturas",
+    "auto_sync_toggle": "Sincronización automática:",
+    "reference_label": "Referencia para facturas",
+    "refund_reference_label": "Referencia para factura de abono",
+    "sync_status_label": "Sincronización de facturas",
+    "sync_placeholder": "Estados en los que se sincroniza",
+    "send_method_label": "¿Cómo se enviará la factura al cliente?",
+    "location": {
+      "none": "No se enviará",
+      "email": "Correo electrónico desde STEL Order"
+    },
+    "templates_card": {
+      "text": "Puedes personalizar tus facturas y los emails de envío desde STEL Order",
+      "button": "Mis Plantillas de STEL Order"
+    }
+  },
+  "verifactu_section": {
+    "title": "Verifactu",
+    "activate_toggle": "Activar Verifactu:",
+    "status_label": "Estado:",
+    "status_pending": "Pendiente de que nos des tu autorización",
+    "status_verified": "Verificado",
+    "auth_card": {
+      "title": "Autoriza a STEL a trabajar como software Verifactu",
+      "description_part1": "Para que STEL Order trabaje como software Verifactu, debes autorizar a STEL Solutions, S.L con NIF ",
+      "description_part2": " a comunicarse en tu nombre con la AEAT. Es un proceso sencillo y reversible, que te explicamos paso a paso en la guía y/o en el vídeo",
+      "authorize_btn": "Autorizar desde la AEAT",
+      "download_guide_btn": "Descargar guía",
+      "note_part1": "Nota:",
+      "note_part2": " Si ya nos autorizaste y no puedes continuar, es porque estamos verificando tu autorización. Vuelve más tarde para finalizar la configuración y comenzar a trabajar con Verifactu."
+    },
+    "config_card": {
+      "text": "Cuando nos autorices, podrás seleccionar tu opción Verifactu y realizar otras configuraciones desde ",
+      "button": "Configurar en STEL Order"
+    },
+    "help_card": {
+      "text": "Soy Alejandra de STEL Order, si tienes alguna duda puedes consultarla con nuestro equipo",
+      "button": "¿Necesitas ayuda?"
+    },
+    "verified_config": {
+      "description": {
+        "default": "Selecciona tu opción Verifactu en ",
+        "selected_yes_verifactu": "Has seleccionado Sí Verifactu, para modificarlo accede a ",
+        "selected_no_verifactu": "Has seleccionado No Verifactu, para modificarlo accede a "
+      },
+      "yes_option": {
+        "title": "Sí Verifactu",
+        "text_1": "Los registros de tus facturas se generan y envían a la AEAT en tiempo real.",
+        "text_2": "Con el envio de tu primer registro, tendrás que permenecer en esta opción, como mínimo, hasta el siguiente año natural."
+      },
+      "no_option": {
+        "title": "No Verifactu",
+        "text_1": "Los registros de tus facturas se generan y almacenan en tiempo real, pero sólo se envían a la AEAT ante un requerimiento de la misma.",
+        "text_2": "Puedes cambiar a la opción de «Sí Verifactu» en cualquier momento."
+      },
+      "auto_verifactu": {
+        "title": "¿Se emite Verifactu automáticamente?",
+        "no": "No, emitiré Verifactu desde mi STEL Order",
+        "yes": "Sí, emitir Verifactu automáticamente para todos mis pedidos"
+      }
+    }
+  },
+  "other_settings_section": {
+    "title": "Otras configuraciones",
+    "client_ref": "Referencia para clientes",
+    "product_ref": "Referencia para productos",
+    "warehouse": "Almacén",
+    "warehouse_placeholder": "Almacén principal"
+  },
+  "modal_save": "¡Guardado correctamente!",
+  "modal_select_state": {
+    "order_title": "Selecciona los estados de los pedidos a sincronizar",
+    "invoice_title": "Selecciona los estados de las facturas a sincronizar"
+  }
+}

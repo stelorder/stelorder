@@ -1,0 +1,6 @@
+import * as e from "react";
+const l = (t) => /* @__PURE__ */ e.createElement("svg", { width: "1em", height: "1em", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", ...t }, /* @__PURE__ */ e.createElement("g", null, /* @__PURE__ */ e.createElement("path", { fillRule: "evenodd", clipRule: "evenodd", d: "M10.1667 5H4.66667C3.65833 5 2.83333 5.7834 2.83333 6.74089V16.5182C2.83333 17.4757 3.65833 18.2591 4.66667 18.2591H1V20H23V18.2591H19.3333C20.3417 18.2591 21.1667 17.4757 21.1667 16.5182V14.7059V6.74089C21.1667 5.88235 20.4559 5 19.3333 5H10.1667ZM4.66667 16.5182H19.3333V6.74089H4.66667V16.5182Z", fill: "#C2C2C2" })));
+export {
+  l as default
+};
+//# sourceMappingURL=desktop-DQ6_YqCr.js.map

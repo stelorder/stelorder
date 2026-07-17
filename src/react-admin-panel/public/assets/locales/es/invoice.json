@@ -1,0 +1,30 @@
+{
+    "empty_table": "No hay facturas disponibles",
+    "filters": {
+        "global_search": "Buscar",
+        "filter_btn": "Filtrar"
+    },
+    "columns": {
+        "invoice_STEL": "Factura en STEL Order",
+        "invoice_woocommerce": "Documento en WooCommerce",
+        "customer": "Cliente",
+        "status": "Estado",
+        "date": "Fecha",
+        "amount": "Importe",
+        "state_verifactu": "Estado en Verifactu",
+        "view_details": "Ver PDF Factura"
+    },
+    "state_verifactu": {
+        "accepted": "Aceptado",
+        "draft": "Borrador",
+        "incident": "Emitido con incidencia",
+        "refused": "Anulado"
+    },
+    "view": "Ver",
+    "pagination": {
+        "first": "Primera",
+        "last": "Última",
+        "perPage": "por página",
+        "elements_template": "Mostrando {from} a {to} de {count}"
+    }
+}

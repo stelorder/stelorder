@@ -1,0 +1,36 @@
+{
+  "menu": {
+    "dashboard": "Menu",
+    "order": "Commandes",
+    "invoices": "Factures",
+    "settings": "Configuration",
+    "work_orders": "Bons de travail"
+  },
+  "options": {
+    "reset_config": "Réinitialiser les paramètres",
+    "delete_integration": "Supprimer l'intégration"
+  },
+  "reset_config": {
+    "title": "Êtes-vous sûr de vouloir rétablir la configuration ?",
+    "message_text": "La configuration sera réinitialisée aux valeurs par défaut et vous perdrez la configuration actuelle.",
+    "btn": {
+      "cancelled_btn": "Annuler",
+      "reset_btn": "Réinitialiser",
+      "loading_reset_btn": "Réinitialisation..."
+    }
+  },
+  "completed_operation": "Enregistré avec succès !",
+  "reestablished_config": "réinitialiser les paramètres",
+  "text_modal": "Nous avons averti le superadministrateur de votre compte pour qu'il examine le plan actuel. Une fois le changement effectué, vous pourrez profiter de cette fonctionnalité.",
+  "delete_integration": {
+    "title": "Êtes-vous sûr de vouloir supprimer cette intégration ?",
+    "message_text": "En acceptant, les informations de cette intégration seront supprimées et vous ne pourrez pas les récupérer.",
+    "title_write_text_delete": "Tapez ici « supprimer définitivement »",
+    "placeholder_write_text_delete": "Supprimer définitivement",
+    "btn": {
+      "cancelled_btn": "Annuler",
+      "delete_btn": "Supprimer définitivement",
+      "loading_delete_btn": "Suppression..."
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+    "state": {
+        "title": "¡Ups!",
+        "subtitle": "Hemos detectado un problema que puede afectar a tu experiencia.",
+        "description": "Nuestro equipo está trabajando en ello. Sentimos las molestias y gracias por tu paciencia."
+    },        
+    "modal_error": {
+        "title": "Se ha producido un error",
+        "message1": "No se ha podido ejecutar la acción. Vuelve a intentarlo más tarde o ",
+        "message2": "Esta página no ha podido cargar por problemas técnicos. Vuelve a intentarlo más tarde o ",
+        "contact_support": "contacta con soporte.",
+        "button": "Aceptar"
+    }
+}

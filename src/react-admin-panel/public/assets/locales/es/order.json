@@ -1,0 +1,23 @@
+{
+    "empty_table": "No hay pedidos disponibles",
+    "filters": {
+        "global_search": "Buscar",
+        "filter_btn": "Filtrar"
+    },
+    "columns": {
+        "order_STEL": "Pedido en STEL Order",
+        "order_woocommerce": "Documento en WooCommerce",
+        "customer": "Cliente",
+        "status": "Estado",
+        "date": "Fecha",
+        "amount": "Importe",
+        "view_details": "Ver PDF Pedido"
+    },
+    "view": "Ver",
+    "pagination": {
+        "first": "Primera",
+        "last": "Última",
+        "perPage": "por página",
+        "elements_template": "Mostrando {from} a {to} de {count}"
+    }
+}

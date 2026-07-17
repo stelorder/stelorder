@@ -1,0 +1,23 @@
+{
+    "empty_table": "No orders available",
+    "filters": {
+        "global_search": "Search",
+        "filter_btn": "Filter"
+    },
+    "columns": {
+        "order_STEL": "Order in STEL Order",
+        "order_woocommerce": "Document in WooCommerce",
+        "customer": "Customer",
+        "status": "Status",
+        "date": "Date",
+        "amount": "Amount",
+        "view_details": "View Order PDF"
+    },
+    "view": "View",
+    "pagination": {
+        "first": "First",
+        "last": "Last",
+        "perPage": "per page",
+        "elements_template": "Showing {from} to {to} of {count}"
+    }
+}

@@ -1,0 +1,2 @@
+export declare const StyledTableWrapper: import('styled-components/dist/types').IStyledComponentBase<"web", import('styled-components').FastOmit<import('react').DetailedHTMLProps<import('react').HTMLAttributes<HTMLDivElement>, HTMLDivElement>, never>> & string;
+export declare const StyledTable: import('styled-components/dist/types').IStyledComponentBase<"web", import('styled-components').FastOmit<import('react').DetailedHTMLProps<import('react').TableHTMLAttributes<HTMLTableElement>, HTMLTableElement>, never>> & string;

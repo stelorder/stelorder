@@ -1,0 +1,21 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+#wpcontent {
+    background-color: #f0f0f1;
+}
+
+nav .tooltip-message div {
+    box-sizing: revert;
+}
+
+.css-wlqmut-MuiChartsAxisHighlight-root, .MuiChartsAxisHighlight-root {
+    pointer-events: none;
+    fill: gray;
+    fill-opacity: 0.1;
+}
+
+input::placeholder {
+    color: #757575!important;
+}

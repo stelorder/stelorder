@@ -1,0 +1,6 @@
+import * as e from "react";
+const o = (t) => /* @__PURE__ */ e.createElement("svg", { width: "1em", height: "1em", viewBox: "0 0 26 26", fill: "none", xmlns: "http://www.w3.org/2000/svg", ...t }, /* @__PURE__ */ e.createElement("g", { id: "icono" }, /* @__PURE__ */ e.createElement("path", { id: "Path", d: "M5.68317 22.1001L24.5873 13.9967C25.4648 13.6176 25.4648 12.3826 24.5873 12.0034L5.68317 3.90006C4.96817 3.58589 4.17734 4.11673 4.17734 4.88589L4.1665 9.88006C4.1665 10.4217 4.56734 10.8876 5.109 10.9526L20.4165 13.0001L5.109 15.0367C4.56734 15.1126 4.1665 15.5784 4.1665 16.1201L4.17734 21.1142C4.17734 21.8834 4.96817 22.4142 5.68317 22.1001Z", fill: "currentColor" })));
+export {
+  o as default
+};
+//# sourceMappingURL=send-1-B5JSl3VU.js.map

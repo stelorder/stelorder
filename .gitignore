@@ -1,0 +1,5 @@
+src/react-admin-panel/node_modules/
+!packages/**
+vendor/
+vendor-prefixed/
+composer.lock

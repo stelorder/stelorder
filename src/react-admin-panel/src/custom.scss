@@ -1,0 +1,28 @@
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
+
+// Redefinir colores antes de importar Bootstrap
+
+$custom-color: #f38135; // Cambia este valor al color que desees
+$theme-colors: (
+    "primary": $custom-color,
+    "secondary": $secondary,
+    "success": $success,
+    "info": $info,
+    "warning": $warning,
+    "danger": $danger,
+    "light": $light,
+    "dark": $dark,
+    "white": $white,
+
+);
+@import "bootstrap/scss/bootstrap";
+
+.btn-primary {
+    color: white !important;
+}
+
+.logo {
+    max-width: 80px;
+}

@@ -1,0 +1,30 @@
+{
+    "empty_table": "No invoices available",
+    "filters": {
+        "global_search": "Search",
+        "filter_btn": "Filter"
+    },
+    "columns": {
+        "invoice_STEL": "Invoice in STEL Order",
+        "invoice_woocommerce": "Document in WooCommerce",
+        "customer": "Customer",
+        "status": "Status",
+        "date": "Date",
+        "amount": "Amount",
+        "state_verifactu": "Status in Verifactu",
+        "view_details": "View Invoice PDF"
+    },
+    "state_verifactu": {
+        "accepted": "Accepted",
+        "draft": "Draft",
+        "incident": "Issued with incident",
+        "refused": "Canceled"
+    },
+    "view": "View",
+    "pagination": {
+        "first": "First",
+        "last": "Last",
+        "perPage": "per page",
+        "elements_template": "Showing {from} to {to} of {count}"
+    }
+}

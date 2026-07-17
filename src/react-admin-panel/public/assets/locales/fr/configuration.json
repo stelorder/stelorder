@@ -1,0 +1,101 @@
+{
+  "completed_operation": "Enregistré avec succès !",
+  "by_default": "Par défaut",
+  "header": {
+    "btn": {
+      "save_btn": "Enregistrer",
+      "loading_btn": "Enregistrement...",
+      "edit_btn": "Modifier"
+    },
+    "status_active": "Intégration activée"
+  },
+  "integration_status": {
+    "label_status": {
+      "paused_label": "Intégration en pause",
+      "active_label": "Intégration activée",
+      "blocked_label": "Intégration bloquée"
+    }
+  },
+  "orders_section": {
+    "title": "Commandes",
+    "auto_sync_toggle": "Synchronisation automatique :",
+    "reference_label": "Référence des commandes",
+    "sync_status_label": "Synchronisation des commandes",
+    "sync_placeholder": "États dans lesquels la synchronisation est effectuée"
+  },
+  "invoices_section": {
+    "title": "Factures",
+    "auto_sync_toggle": "Synchronisation automatique :",
+    "reference_label": "Référence de facture",
+    "refund_reference_label": "Référence de facture d’avoir",
+    "sync_status_label": "Synchronisation des factures",
+    "sync_placeholder": "États dans lesquels la synchronisation est effectuée",
+    "send_method_label": "Comment la facture sera-t-elle envoyée au client ?",
+    "location": {
+      "none": "Elle ne sera pas envoyée",
+      "email": "E-mail depuis STEL Order"
+    },
+    "templates_card": {
+      "text": "Vous pouvez personnaliser vos factures et les e-mails d’envoi depuis STEL Order",
+      "button": "Mes modèles STEL Order"
+    }
+  },
+  "verifactu_section": {
+    "title": "Verifactu",
+    "activate_toggle": "Activer Verifactu :",
+    "status_label": "Statut :",
+    "status_pending": "En attente de votre autorisation",
+    "status_verified": "Vérifié",
+    "auth_card": {
+      "title": "Autorisez STEL à agir comme logiciel Verifactu",
+      "description_part1": "Pour que STEL Order fonctionne comme logiciel Verifactu, vous devez autoriser STEL Solutions, S.L avec le NIF ",
+      "description_part2": " à communiquer en votre nom avec l’AEAT. Il s’agit d’un processus simple et réversible, expliqué pas à pas dans le guide et/ou la vidéo.",
+      "authorize_btn": "Autoriser depuis l’AEAT",
+      "download_guide_btn": "Télécharger le guide",
+      "note_part1": "Remarque :",
+      "note_part2": " Si vous nous avez déjà autorisés et que vous ne pouvez pas continuer, c’est parce que nous vérifions votre autorisation. Revenez plus tard pour finaliser la configuration et commencer à utiliser Verifactu."
+    },
+    "config_card": {
+      "text": "Une fois autorisé, vous pourrez sélectionner votre option Verifactu et effectuer d’autres configurations depuis ",
+      "button": "Configurer dans STEL Order"
+    },
+    "help_card": {
+      "text": "Je suis Alejandra de STEL Order. Si vous avez des questions, vous pouvez contacter notre équipe",
+      "button": "Besoin d’aide ?"
+    },
+    "verified_config": {
+      "description": {
+        "default": "Sélectionnez votre option Verifactu dans ",
+        "selected_yes_verifactu": "Vous avez sélectionné Oui Verifactu. Pour le modifier, accédez à ",
+        "selected_no_verifactu": "Vous avez sélectionné Non Verifactu. Pour le modifier, accédez à "
+      },
+      "yes_option": {
+        "title": "Oui Verifactu",
+        "text_1": "Les registres de vos factures sont générés et envoyés à l’AEAT en temps réel.",
+        "text_2": "Après l’envoi de votre premier registre, vous devrez rester dans cette option au minimum jusqu’à l’année civile suivante."
+      },
+      "no_option": {
+        "title": "Non Verifactu",
+        "text_1": "Les registres de vos factures sont générés et stockés en temps réel, mais ne sont envoyés à l’AEAT qu’en cas de demande.",
+        "text_2": "Vous pouvez passer à l’option « Oui Verifactu » à tout moment."
+      },
+      "auto_verifactu": {
+        "title": "Verifactu est-il émis automatiquement ?",
+        "no": "Non, j’émettrai Verifactu depuis mon STEL Order",
+        "yes": "Oui, émettre Verifactu automatiquement pour toutes mes commandes"
+      }
+    }
+  },
+  "other_settings_section": {
+    "title": "Autres configurations",
+    "client_ref": "Référence client",
+    "product_ref": "Référence produit",
+    "warehouse": "Entrepôt",
+    "warehouse_placeholder": "Entrepôt principal"
+  },
+  "modal_save": "Enregistré avec succès !",
+  "modal_select_state": {
+    "order_title": "Sélectionnez les états des commandes à synchroniser",
+    "invoice_title": "Sélectionnez les états des factures à synchroniser"
+  }
+}
