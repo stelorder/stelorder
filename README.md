@@ -2,22 +2,27 @@
 
 This plugin provides a native integration between the STEL Order cloud ERP and the WooCommerce e-commerce plugin. It synchronizes business data between both platforms by leveraging the existing capabilities of WordPress and WooCommerce while consuming STEL Order's third-party services.
 
-Public repository: https://github.com/stelorder/stelorder
+Public repository:
+https://github.com/stelorder/stelorder
 
 ## Overview
 
-The purpose of this plugin is to keep critical business data synchronized between WooCommerce and STEL Order, including customers, products, orders, invoices, and subscriptions. The plugin logic is implemented in `src/`, while the administration interface is built as a React + TypeScript Single Page Application (SPA) located in `src/react-admin-panel`.
+The purpose of this plugin is to keep critical business data synchronized between WooCommerce and STEL Order, including customers, products, orders, invoices, and subscriptions.
+
+The plugin logic is implemented in `src/`, while the administration interface is built as a React + TypeScript Single Page Application (SPA) located in `src/react-admin-panel`.
 
 ## Prerequisites
 
-To develop and run the plugin, you will need:
+To develop and build the plugin, you will need:
 
 - PHP 8.2 or later.
 - Composer.
-- Node.js (using `nvm` to manage Node versions is recommended).
+- Node.js (using nvm is recommended).
 - npm.
 
-### Main Project Dependencies
+---
+
+## Main Project Dependencies
 
 The plugin root includes the following PHP dependencies defined in `composer.json`:
 
@@ -27,7 +32,9 @@ The plugin root includes the following PHP dependencies defined in `composer.jso
 - `symfony/property-info` for property metadata extraction.
 - `phpdocumentor/reflection-docblock` for reading DocBlock comments and annotations.
 
-### Development Tools
+---
+
+## Development Tools
 
 The plugin also includes several development tools defined in `composer.json` to ensure code quality and compatibility:
 
@@ -36,11 +43,11 @@ The plugin also includes several development tools defined in `composer.json` to
 - `php-stubs/wordpress-stubs` and `php-stubs/woocommerce-stubs` provide WordPress and WooCommerce stubs so static analysis tools can understand their APIs.
 - `brianhenryie/strauss` is used during the build process to prefix dependencies and generate a distributable package.
 
-These tools help validate plugin compatibility with PHP, WordPress, and WooCommerce before deployment.
+---
 
-### React Admin Panel Dependencies
+## React Admin Panel Dependencies
 
-The administration panel is located in `src/react-admin-panel` and uses:
+The administration panel located in `src/react-admin-panel` uses:
 
 - `react` 19
 - `react-dom` 19
@@ -52,6 +59,8 @@ The administration panel is located in `src/react-admin-panel` and uses:
 - `eslint` and related plugins to maintain code quality.
 - `uuid` for identifier generation.
 - `@stelsolutions/stelorder-catalog` to use the STEL Order React components library.
+
+---
 
 ## Project Structure
 
@@ -67,9 +76,13 @@ The plugin is mainly organized as follows:
   - `Services/` – business, integration, and synchronization services.
   - `Views/` – administration panel views and configuration.
   - `WooCommerce/` – WooCommerce-specific configuration and hooks.
+  - `assets/js/` – generated JavaScript production bundles.
+  - `assets/css/` – generated CSS production bundles.
 
 - `src/react-admin-panel/` – React + TypeScript SPA for the plugin administration panel.
   - The `src/` directory inside this folder contains the panel's components, pages, contexts, observers, and utilities.
+
+---
 
 ## React Admin Panel Development
 
@@ -90,7 +103,7 @@ npm run dev
 
 3. Open WordPress and navigate to the plugin administration page. The code in `src/Views/SpaConfig.php` detects development mode and loads the Vite development server instead of the production bundles.
 
-### Vite Development Mode Configuration
+### Vite Development Mode
 
 The `src/Views/SpaConfig.php` file uses the following constants to enable the Vite development server:
 
@@ -102,35 +115,103 @@ To load assets from the Vite server, these constants must be defined and enabled
 - `http://localhost:5173/@vite/client`
 - `http://localhost:5173/src/main.tsx`
 
-If development mode is not enabled, `SpaConfig.php` loads the production bundles from the `assets/js` and `assets/css` directories.
+Otherwise, it loads the generated assets from:
+
+```text
+assets/js/
+assets/css/
+```
+
+---
+
+## Source Code for Generated Assets
+
+The JavaScript and CSS files distributed with the plugin under:
+
+```text
+assets/js/
+assets/css/
+```
+
+are production bundles generated from the human-readable source code contained in:
+
+```text
+src/react-admin-panel/
+```
+
+The complete source code used to generate those assets is publicly available in this repository and includes:
+
+- React components.
+- TypeScript source files.
+- CSS and SCSS source files.
+- Vite configuration.
+- Build scripts.
+- Frontend dependencies.
+- The React component library used by the administration panel.
+
+During development, the plugin loads the source files directly from the Vite development server. During production builds, those files are compiled into the JavaScript and CSS bundles distributed with the plugin.
+
+Therefore, every generated or compressed asset included in the distributed plugin package can be reviewed, modified and reproduced from the publicly available source code contained in this repository.
+
+---
 
 ## Quick Installation
 
-From the plugin root directory:
+Install the PHP dependencies from the plugin root directory:
 
 ```bash
 composer install
 ```
 
-From the React admin panel directory:
+Install the frontend dependencies from the React admin panel directory:
 
 ```bash
 cd src/react-admin-panel
 npm install
 ```
 
-Before running `npm install`, you must configure access to the private npm package by creating an `.npmrc` file or setting up the appropriate authentication token.
+---
 
 ## Production Build
 
-Once the frontend has been built, the plugin can be packaged using the `build` Composer script defined in `composer.json`.
+The production assets can be generated by running:
+
+```bash
+cd src/react-admin-panel
+npm run build
+```
+
+The plugin package can then be generated using the Composer build script defined in:
+
+```text
+composer.json
+```
 
 The build process performs the following tasks:
 
-- installs Composer dependencies without development packages,
-- builds the React assets using Vite,
-- copies the plugin files and generated frontend bundles,
-- creates a ZIP package ready for distribution.
+- Installs Composer dependencies.
+- Builds the React administration panel.
+- Generates the JavaScript and CSS production bundles.
+- Copies the required plugin files.
+- Creates the distributable ZIP package.
+
+---
+
+## GPL Compliance
+
+This repository contains the complete human-readable source code required to study, modify, build and redistribute the plugin in accordance with the GNU General Public License v2 or later.
+
+The repository includes:
+
+- PHP source code.
+- React and TypeScript source code.
+- Build scripts.
+- Composer dependencies.
+- Frontend dependencies.
+- Development tools.
+- Production build instructions.
+
+---
 
 ## Contributing
 
