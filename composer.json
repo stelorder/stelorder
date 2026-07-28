@@ -2,7 +2,7 @@
     "name": "stel/verifactu",
     "description": "Connect WooCommerce with STEL Order and sync orders, invoices, customers and products. To access the plugin's source code and the development and compilation tools, you can visit the GitHub repository at https://github.com/stelorder/stelorder",
     "type": "project",
-    "license": "MIT",
+    "license": "GPL-2.0-or-later",
     "autoload": {
         "psr-4": {
             "Stel\\Verifactu\\": "src/"
@@ -10,8 +10,8 @@
     },
     "authors": [
         {
-            "name": "josemanuelptstelorder",
-            "email": "josemanuelpereztoral.stelorder@gmail.com"
+            "name": "stelorder",
+            "email": "desarrollo@stelorder.com"
         }
     ],
     "require-dev": {

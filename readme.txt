@@ -35,6 +35,12 @@ The public repository includes the source code, build scripts, Composer dependen
 
 https://github.com/stelorder/stelorder
 
+The JavaScript and CSS files under assets/js and assets/css are production bundles generated from the React + TypeScript source in src/react-admin-panel.
+
+Those bundles also include our React component library @stelsolutions/stelorder-catalog. Its source code and build tools are available at:
+
+https://github.com/stelorder/stelorder-catalog
+
 = Synchronization capabilities =
 
 The synchronization capabilities available through the plugin depend on the services and synchronization options configured for the connected STEL Order account.

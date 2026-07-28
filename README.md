@@ -60,6 +60,8 @@ The administration panel located in `src/react-admin-panel` uses:
 - `uuid` for identifier generation.
 - `@stelsolutions/stelorder-catalog` to use the STEL Order React components library.
 
+  Note: The source code for the stelorder-catalog dependency is publicly available at https://github.com/stelorder/stelorder-catalog. The administration panel currently points to the stable tag v1.4.0_stable: https://github.com/stelorder/stelorder-catalog/releases/tag/v1.4.0_stable
+
 ---
 
 ## Project Structure
