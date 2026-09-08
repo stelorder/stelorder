@@ -4,7 +4,7 @@ Tags: verifactu, invoices, products, customers, stock
 Requires at least: 6.5
 Tested up to: 7.0
 Requires PHP: 8.2
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: GPL v2 or later
 License URI: [https://www.gnu.org/licenses/gpl-2.0.html](https://www.gnu.org/licenses/gpl-2.0.html)
 Requires Plugins: woocommerce
@@ -66,6 +66,7 @@ When product synchronization is enabled for the connected STEL Order account, th
 * Configure the synchronization direction for supported fields. Choose exactly which fields to sync: name, price, barcode, stock, image, description, reference/SKU and warehouse.
 * Works with variable products using size, color, format or any other attribute.
 * Full control over which products are synced and under what criteria.
+* Bulk synchronization of products, selecting them by category and using the field settings selected in the integration’s product settings for the synchronisation
 
 = Why STEL Order? =
 
@@ -207,3 +208,7 @@ https://www.stelorder.com/politica-de-privacidad-stel-order/
 = 1.0.0 =
 
 * Initial release with WooCommerce integration for STEL Order, including synchronization of business information, Verifactu support and product synchronization capabilities according to the connected STEL Order account.
+
+= 1.1.0 =
+
+* Added bulk product synchronization capabilities, allowing the store administrator to synchronize multiple products at once based on selected categories and using the field settings configured in the integration’s product settings.

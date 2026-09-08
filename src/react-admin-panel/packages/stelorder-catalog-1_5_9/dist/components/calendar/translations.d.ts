@@ -1,0 +1,15 @@
+export type CalendarLocale = "es" | "en" | "fr";
+export declare const MONTH_NAMES: Record<CalendarLocale, string[]>;
+export declare const DAY_NAMES: Record<CalendarLocale, string[]>;
+export declare const CANCEL_LABEL: Record<CalendarLocale, string>;
+export declare const ACCEPT_LABEL: Record<CalendarLocale, string>;
+export declare const PREV_MONTH_LABEL: Record<CalendarLocale, string>;
+export declare const NEXT_MONTH_LABEL: Record<CalendarLocale, string>;
+export declare const HOUR_LABEL: Record<CalendarLocale, string>;
+export declare const MINUTE_LABEL: Record<CalendarLocale, string>;
+export declare const HOUR_INPUT_A11Y_LABEL: Record<CalendarLocale, string>;
+export declare const MINUTE_INPUT_A11Y_LABEL: Record<CalendarLocale, string>;
+export declare const INC_HOUR_A11Y_LABEL: Record<CalendarLocale, string>;
+export declare const DEC_HOUR_A11Y_LABEL: Record<CalendarLocale, string>;
+export declare const INC_MINUTE_A11Y_LABEL: Record<CalendarLocale, string>;
+export declare const DEC_MINUTE_A11Y_LABEL: Record<CalendarLocale, string>;
