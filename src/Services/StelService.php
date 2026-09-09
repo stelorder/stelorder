@@ -9,6 +9,8 @@ use Exception;
 use InvalidArgumentException;
 use RuntimeException;
 
+use Stel\Verifactu\Domain\EventActionType;
+use Stel\Verifactu\Domain\EventType;
 use Stel\Verifactu\Exceptions\EntityNotFound;
 use Stel\Verifactu\Logs\LogUtils;
 use Stel\Verifactu\Logs\TransientLog;
@@ -793,7 +795,76 @@ class StelService
         return $events ?? [];
     }
 
+    /**
+     * @throws Exception
+     */
+    public function publishEvent(string $integrationId, string $token, string $topicEntity, EventType $type, EventActionType $actionType, array $payload = []): ?string {
+        if (empty($integrationId) || !preg_match('/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/', $integrationId)) {
+            throw new InvalidArgumentException(ErrorMessages::INVALID_INTEGRATION_ID);
+        }
+        $url = self::STEL_API_MICROSERVICE_URL . "integrations/{$integrationId}/events";
+        $payload = wp_json_encode($payload);
+        if ($payload === false) {
+            throw new Exception("Could not encode payload");
+        }
+        $body = [
+            "type" => $type,
+            "topic" => "wc.$topicEntity",
+            "action" => $actionType->value,
+            "payload" => $payload,
+        ];
+        $response = wp_remote_post($url, [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $token,
+                'Content-Type' => 'application/json',
+            ],
+            'body' => wp_json_encode($body),
+        ]);
+        $http_code = wp_remote_retrieve_response_code($response);
+        if (is_wp_error($response) || $http_code >= WP_Http::BAD_REQUEST) {
+            throw new RuntimeException("HTTP Error {$http_code}: " . wp_remote_retrieve_body($response));
+        }
+        $responseBody = wp_remote_retrieve_body($response);
+        $responseBody = json_decode($responseBody, true);
+        if (!is_array($responseBody)) {
+            return null;
+        }
+        return $responseBody['eventId'] ?? null;
+    }
 
+    private function isValidUUID(?string $uuid): bool {
+        if (empty($uuid)) {
+            return false;
+        }
+
+        return preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i', $uuid) === 1;
+    }
+
+    public function fetchEventJobs(string $integrationId, string $token, string $syncEventId): ?array
+    {
+        if ($this->isValidUUID($syncEventId) === false) {
+            throw new InvalidArgumentException(ErrorMessages::INVALID_EVENT_ID);
+        }
+        if ($this->isValidUUID($integrationId) === false) {
+            throw new InvalidArgumentException(ErrorMessages::INVALID_INTEGRATION_ID);
+        }
+        $url = self::STEL_API_MICROSERVICE_URL . "integrations/{$integrationId}/events/{$syncEventId}/jobs";
+        $response = wp_remote_get($url, array(
+            'headers' => array(
+                'Authorization' => 'Bearer ' . $token,
+            )
+        ));
+        $http_code = wp_remote_retrieve_response_code($response);
+        $rawBody = wp_remote_retrieve_body($response);
+        $body = json_decode($rawBody, true);
+        if (is_wp_error($response) || $http_code >= WP_Http::BAD_REQUEST) {
+            throw new RuntimeException("HTTP Error {$http_code}: " . $body['message'] ?? 'Unknown error');
+        }
+        if (!is_array($body)) {
+            return null;
+        }
+        return $body;
+    }
 
 
 }

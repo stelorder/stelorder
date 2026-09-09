@@ -1,21 +1,25 @@
 import { useWpApiSettings } from "../hooks/useWpApiSettings";
+import {useCallback} from "react";
 
 export function useFetchApiData<T>(): {
-  fetchData: (data: {
+    fetchData: (data: {
     endpoint: string;
     method?: string;
     body?: Record<string, unknown>;
   }) => Promise<T>;
 } {
   const { nonce, rootUrl } = useWpApiSettings();
-  return {
-    fetchData: ({ endpoint, method = "GET", body }) =>
+  const fetchData = useCallback(({ endpoint, method = "GET", body }: {
+    endpoint: string;
+    method?: string;
+    body?: Record<string, unknown>;
+  }) =>
       fetch(rootUrl + endpoint, {
         method,
         headers: {
           "Content-Type": "application/json",
           // El nonce será utilizado en la autenticación de la petición, además, cuando se envíe la solicitud,
-          // se incluirá la cookie de autenticación de WordPress, por lo que no es necesario enviar 
+          // se incluirá la cookie de autenticación de WordPress, por lo que no es necesario enviar
           // el token de autenticación
           "X-WP-Nonce": nonce,
         },
@@ -26,6 +30,8 @@ export function useFetchApiData<T>(): {
           return payload as T;
         }
         throw payload;
-      }),
+      }), [nonce, rootUrl]);
+  return {
+      fetchData
   };
 }

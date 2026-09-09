@@ -24,7 +24,7 @@ class QueryProductsDto {
 		#[Assert\NotBlank(allowNull: true)]
 		#[Assert\Length(max: 100)]
 		#[Assert\Regex(
-			pattern: '/^([0-9]\-)*[0-9]+?$/',
+			pattern: '/^([0-9]+\-)*[0-9]+?$/',
 			message: 'global_unique_id must be a valid GTIN (8, 12, 13 or 14 digits).'
 		)]
 		public ?string $global_unique_id = null,

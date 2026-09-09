@@ -18,7 +18,7 @@ export function useCreateFetchResources<T>({
       endpoint,
       method,
       onComplete: (data) => {
-        handleData(data as T);
+          handleData(data as T);
       },
       onError: () => {
         handleData(null);

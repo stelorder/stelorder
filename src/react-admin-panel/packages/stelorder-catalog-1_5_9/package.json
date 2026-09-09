@@ -1,7 +1,7 @@
 {
   "name": "@stelsolutions/stelorder-catalog",
   "version": "1.5.9",
-  "description": "",
+  "description": "STEL Order Catalog is a modular React component library powered by Vite and TypeScript, with strongly typed, scalable components for distribution and reuse.",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
@@ -13,8 +13,8 @@
     "react-dom": ">=18.0.0 <20.0.0",
     "styled-components": ">=6.1.19"
   },
-  "license": "ISC",
+  "license": "GPL-2.0-or-later",
   "keywords": [],
-  "author": "",
+  "author": "stelorder",
   "type": "module"
 }

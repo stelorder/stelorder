@@ -3,6 +3,7 @@
 namespace Stel\Verifactu\WooCommerce\Transformer;
 
 use Automattic\WooCommerce\Enums\ProductType;
+use Stel\Verifactu\Repositories\ProductRepository;
 use Stel\Verifactu\Services\ProductService;
 use Stel\Verifactu\WooCommerce\Utils\ProductChangeTracker;
 use WC_Product_Variation;
@@ -10,7 +11,7 @@ use WC_Product_Variation;
 class ProductTransformer {
     private static ?ProductTransformer $instance = null;
     private ProductService $productService;
-    private const PRODUCT_FIELDS = ['id', 'name', 'type', 'images', 'sku', 'description', 'price', 'global_unique_id' ];
+    private const PRODUCT_FIELDS = ['id', 'name', 'type', 'images', 'sku', 'description', 'price', 'global_unique_id', 'stock_quantity' ];
 
     private function variant_images(WC_Product_Variation $variation): array {
         $image = $variation->get_image_id();
@@ -53,13 +54,16 @@ class ProductTransformer {
         }
 
         private function transformProduct(array $productData) : array {
-         $product = [];
+            $product = [];
             foreach (self::PRODUCT_FIELDS as $field) {
                 if (isset($productData[$field])) {
                     $product[$field] = $productData[$field];
                 }
             }
-         return $product;
+            $loadedProduct = wc_get_product($productData['id']);
+            $externalId = $loadedProduct ? $loadedProduct->get_meta(ProductRepository::SYNC_META_FIELD) : null;
+            $product['entity_synchronized_id'] = !empty($externalId) ? $externalId : null;
+            return $product;
         }
 
         private function isVariable(array $productData): bool {
@@ -93,6 +97,8 @@ class ProductTransformer {
                             }
                         }
                         $variationData['wcId'] = $wcId;
+                        $externalId = $productVariation->get_meta(ProductRepository::SYNC_META_FIELD);
+                        $variationData['entity_synchronized_id'] = !empty($externalId) ? $externalId : null;
                         return $variationData;
                     },
                     $productData['variations']

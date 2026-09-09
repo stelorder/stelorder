@@ -4,12 +4,12 @@
  * Plugin Name: Stel Order
  * Description: Connect WooCommerce with STEL Order and sync orders, invoices, customers and products.
  * Plugin URI: https://www.stelorder.com/integraciones/woocommerce/
- * Version: 1.0.0
+ * Version: 1.1.0
  * Author: stelorder
  * Author URI: https://stelorder.com
  *
  * Requires at least: 6.5
- * Tested up to: 7.0
+ * Tested up to: 7.1
  * Requires PHP: 8.2
  *
  * Requires Plugins: woocommerce

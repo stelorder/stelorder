@@ -97,5 +97,82 @@
   "modal_select_state": {
     "order_title": "Sélectionnez les états des commandes à synchroniser",
     "invoice_title": "Sélectionnez les états des factures à synchroniser"
+  },
+  "product_sync_section": {
+    "update_now": "Synchroniser maintenant"
+  },
+  "sync_progress_indicator": {
+    "loading": "Chargement...",
+    "syncing": "Publication des produits...",
+    "success": "Publication terminée !",
+    "label_1": "Publication des produits ·",
+    "label_2": "de"
+  },
+  "success_event_job": {
+    "title": "Produits synchronisés",
+    "message": "Tous les produits synchronisés avec succès.",
+    "button": "Fermer"
+  },
+  "select_category_modal": {
+    "title": "Synchroniser les produits",
+    "select_label": "Catégories de produits",
+    "select_placeholder": "Sélectionner les catégories",
+    "select_all": "Toutes les catégories",
+    "search_placeholder": "Rechercher",
+    "no_categories": "Aucune catégorie ne correspond à votre recherche",
+    "btn_accept": "Accepter",
+    "products_no_sync": "produits sans synchronisation",
+    "alert": {
+      "1": "Le nombre maximal de produits pouvant être synchronisés est de",
+      "2": "Seuls les premiers",
+      "3": "produits sélectionnés seront synchronisés ; pour synchroniser le reste, vous devrez répéter le processus."
+    }
+  },
+  "sync_error_modal": {
+    "title": "Échec de la synchronisation",
+    "message": {
+      "of": "de",
+      "failed_message": "produits n’ont pas été synchronisés correctement."
+    },
+    "label": "Produits en erreur",
+    "product": "Produit",
+    "btn_close": "Fermer",
+    "btn_retry": "Réessayer la synchronisation"
+  },
+  "sync_status": {
+    "processing": "Traitement des produits...",
+    "success": "Synchronisation terminée !",
+    "sync_message": {
+      "of": "de",
+      "message": "Synchronisation des produits ·"
+    }
+  },
+  "product_sync_config": {
+    "title": "Produits et Stock",
+    "modal_btn": "Configuration des champs",
+    "warehouse_label": "Sélection de l'entrepôt",
+    "sync_fields": "champs synchronisés",
+    "modal": {
+      "title": "Sélectionnez les champs à synchroniser",
+      "btn": "Enregistrer",
+      "fields" : {
+        "values": {
+          "real_stock": "Stock réel de Order",
+          "virtual_stock": "Stock virtuel de Order",
+          "bidirectional": "Bidirectionnel",
+          "to_primary": "De WooCommerce à Order",
+          "to_secondary": "De Order à WooCommerce"
+        },
+        "labels": {
+          "name": "Nom",
+          "price": "Prix de vente de base",
+          "description": "Description",
+          "barcode": "Code à barres",
+          "stock": "Stock",
+          "image": "Image",
+          "sku": "Référence/SKU"
+        }
+      }
+    }
   }
 }

@@ -26,7 +26,6 @@ import {
   useFetchConfiguration,
 } from "../hooks/useFetchConfiguration";
 import {useUpdateIntegrationConfig} from "../hooks/useUpdateIntegrationConfig";
-import {ErrorModal} from "../components/ErrorModal/ErrorModal";
 import {SelectSyncStatusModal} from "../components/SelectSyncStatusModal/SelectSyncStatusModal";
 import {useWpApiSettings} from "../hooks/useWpApiSettings";
 import {useNavigate} from "react-router-dom";
@@ -36,6 +35,7 @@ import {useTranslation} from "react-i18next";
 import {ProductConfig} from "../components/360/ProductConfig/ProductConfig.tsx";
 import SerialNumberUtils from "../utils/SerialNumberUtils.ts";
 import {SelectOption} from "@stelsolutions/stelorder-catalog/dist/components/form/form-select/form-select-types";
+import {useErrorContext} from "../context/ErrorContext/ErrorContext.tsx";
 
 const invoiceLocationLabel = {
   NONE: (func: (key: string) => string) => func("invoices_section.location.none"),
@@ -208,7 +208,7 @@ export default function ConfigPage() {
       useState<boolean>(false);
 
   const [open, setOpen] = useState(false);
-  const [openErrorModal, setOpenErrorModal] = useState<boolean>(false);
+  const { showErrorModal } = useErrorContext();
 
   const [refProduct, setRefProduct] = useState<SelectOption | undefined>();
 
@@ -231,7 +231,6 @@ export default function ConfigPage() {
       []
   );
 
-  const { t: errorTranslation } = useTranslation("error");
   const { t: configTranslation } = useTranslation("configuration");
 
   const {
@@ -290,7 +289,7 @@ export default function ConfigPage() {
           }, 1500);
         },
         onError: () => {
-          setOpenErrorModal(true);
+            showErrorModal()
         },
       });
 
@@ -1847,12 +1846,7 @@ export default function ConfigPage() {
               });
             }}
         />
-        <ErrorModal
-            isOpen={openErrorModal}
-            close={() => setOpenErrorModal(false)}
-            message={errorTranslation("modal_error.message1")}
-            durationMs={2500}
-        />
+
         <Modal
             isOpen={open}
             isCentered={true}

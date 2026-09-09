@@ -4,6 +4,10 @@ import {RootConfig, Warehouse} from "../../../hooks/useFetchConfiguration.ts";
 import {SetStateAction, useState} from "react";
 import {useStateIntegration360Config} from "../../../hooks/360/useStateIntegration360Config.ts";
 import {ProductSyncModal} from "../ProductSyncModal/ProductSyncModal.tsx";
+import {ModalCategorySelect} from "../AvailableCategoriesModal/ModalCategorySelect/ModalCategorySelect.tsx";
+import {usePollingEventJobs} from "../../../hooks/360/usePollingEventJobs.ts";
+import {EventStatusMeter} from "../EventStatusMeter/EventStatusMeter.tsx";
+import {EventJobModal} from "../EventJobModal/EventJobModal.tsx";
 
 export interface ProductConfigProps {
     warehouse_config: { warehouse_id: string };
@@ -20,11 +24,7 @@ export interface ProductConfigProps {
 export type IntegrationConfigUpdater = ( updateCallback: SetStateAction<RootConfig | null | undefined> ) => void;
 
 export function ProductConfig(props: { isDisabled: boolean, config?: ProductConfigProps }) {
-
-    if (!props.config) {
-        return null;
-    }
-
+    const { t } = useTranslation("configuration");
     return (
         <SimpleGrid gap={10} itemsPerLine={1} direction="column">
         <SimpleGrid.Item col={1}>
@@ -33,10 +33,14 @@ export function ProductConfig(props: { isDisabled: boolean, config?: ProductConf
                 textAlign="left"
                 variant="default"
             >
-                Productos y Stock
+                {t("product_sync_config.title")}
             </Title>
         </SimpleGrid.Item>
-        <ConfigSection config={{...props.config}} isDisabled={props.isDisabled} />
+            <>
+                {
+                    props.config ? <ConfigSection config={{...props.config}} isDisabled={props.isDisabled} />: null
+                }
+            </>
     </SimpleGrid>
     );
 }
@@ -53,24 +57,53 @@ function ConfigSection({config, isDisabled}: {config: ProductConfigProps, isDisa
             availables: config.available_360_module_config.warehouses,
         }
     });
+    const { isPendingEventLoading, pendingEvent, handlePendingEventId, isProcessing, pollingData, clearPollingData } = usePollingEventJobs();
+
+
     return (
         <>
+            <EventJobModal
+                pendingEvent={pendingEvent}
+                eventJobData={pollingData}
+                clearEventJobData={clearPollingData}
+                handlePendingEventId={handlePendingEventId}
+            />
             <SimpleGrid.Item col={1}>
-                <Form.Group>
-                    <Form.Checkbox
-                        label={configTranslation("orders_section.auto_sync_toggle")}
-                        type="switch"
-                        isInvalid={false}
-                        isValid={false}
-                        id="product-checkbox"
-                        labelPosition="left"
-                        labelGap={12}
-                        htmlProps={{
-                            disabled: isDisabled,
-                            onChange: switchSyncProduct,
-                            checked: enableSyncProduct,
-                        }}/>
-                </Form.Group>
+                <SimpleGrid itemsPerLine={2} alignX={"between"}>
+                    <SimpleGrid.Item col={"auto"}>
+                        <Form.Group>
+                            <Form.Checkbox
+                                label={configTranslation("orders_section.auto_sync_toggle")}
+                                type="switch"
+                                isInvalid={false}
+                                isValid={false}
+                                id="product-checkbox"
+                                labelPosition="left"
+                                labelGap={12}
+                                htmlProps={{
+                                    disabled: isDisabled,
+                                    onChange: switchSyncProduct,
+                                    checked: enableSyncProduct,
+                                }}/>
+                        </Form.Group>
+                    </SimpleGrid.Item>
+
+                    <SimpleGrid.Item col={"auto"}>
+                        {
+                            isPendingEventLoading ? null :
+                            pollingData === null ? <ModalCategorySelect
+                                onComplete={handlePendingEventId}
+                                isOpen={false}
+                                isCentered={true}
+                                fade={true}
+                                animationDurationSec={0.3}
+                            /> : <EventStatusMeter
+                                isProcessing={isProcessing}
+                                eventJobs={pollingData}
+                            />
+                        }
+                    </SimpleGrid.Item>
+                </SimpleGrid>
             </SimpleGrid.Item>
             <SimpleGrid.Item col={1}>
                 <SimpleGrid itemsPerLine={2}>
@@ -86,7 +119,7 @@ function ConfigSection({config, isDisabled}: {config: ProductConfigProps, isDisa
                                     },
                                 }}
                             >
-                                Selección de almacén
+                                {configTranslation("product_sync_config.warehouse_label")}
                             </Form.Label>
                             <SimpleGrid itemsPerLine={2} gap={20}>
                                 <SimpleGrid.Item col={1}>
@@ -119,13 +152,13 @@ function ConfigSection({config, isDisabled}: {config: ProductConfigProps, isDisa
                                         style: { height: "100%" },
                                         onClick: () => setOpen(true),
                                     }}>
-                                        Configuración de campos
+                                        {configTranslation("product_sync_config.modal_btn")}
                                     </Button>
                                     <span style={{
                                         marginLeft: "10px",
                                         color: integrationsTheme.colors.orderSecondary.orderSecondary70,
                                         ...integrationsTheme.fonts.h1500,
-                                    }}>{config.product_360_config.fields?.length || 0} campos sincronizados</span>
+                                    }}>{config.product_360_config.fields?.length || 0} {configTranslation("product_sync_config.sync_fields")}</span>
                                 </SimpleGrid.Item>
                             </SimpleGrid>
                         </Form.Group>

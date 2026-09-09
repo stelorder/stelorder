@@ -2,6 +2,7 @@ import React, {useContext, useState} from "react";
 import {RootContext} from "../../../context/RootContext/RootContext.context.tsx";
 import {SelectOption} from "@stelsolutions/stelorder-catalog/dist/components/form/form-select/form-select-types";
 import {Button, Form, Icon, integrationsTheme, Modal, SimpleGrid} from "@stelsolutions/stelorder-catalog";
+import {useTranslation} from "react-i18next";
 
 export function ProductSyncModal({fields, updateConfig, isOpen, close}: {
     fields: { field_rule: string, direction: "TO_PRIMARY" | "TO_SECONDARY" | "BIDIRECTIONAL" }[];
@@ -10,11 +11,12 @@ export function ProductSyncModal({fields, updateConfig, isOpen, close}: {
     updateConfig: (config: { field_rule: string, direction: "TO_PRIMARY" | "TO_SECONDARY" | "BIDIRECTIONAL" }[]) => void;
 }) {
     const {root} = useContext(RootContext) || {root: document.body};
+    const { t } = useTranslation("configuration");
 
 
     const STOCK_OPTIONS = [
-        {label: "Stock real de Order", value: "REAL"},
-        {label: "Stock virtual de Order", value: "VIRTUAL"},
+        {label: t("product_sync_config.modal.fields.values.real_stock"), value: "REAL"},
+        {label: t("product_sync_config.modal.fields.values.virtual_stock"), value: "VIRTUAL"},
     ];
 
     const DEFAULT_DIRECTION = "BIDIRECTIONAL";
@@ -24,20 +26,20 @@ export function ProductSyncModal({fields, updateConfig, isOpen, close}: {
         direction: SelectOption | null;
     };
     const STATUS_LABELS: Record<string, string> = {
-        name: "Nombre",
-        price: "Precio base de venta",
-        barcode: "Código de barras",
-        "real-stock": "Stock",
-        "virtual-stock": "Stock virtual",
-        image: "Imagen",
-        description: "Descripción",
-        sku: "Referencia/SKU",
+        name: t("product_sync_config.modal.fields.labels.name"),
+        price: t("product_sync_config.modal.fields.labels.price"),
+        barcode: t("product_sync_config.modal.fields.labels.barcode"),
+        "real-stock": t("product_sync_config.modal.fields.labels.stock"),
+        "virtual-stock": t("product_sync_config.modal.fields.labels.stock"),
+        image: t("product_sync_config.modal.fields.labels.image"),
+        description: t("product_sync_config.modal.fields.labels.description"),
+        sku: t("product_sync_config.modal.fields.labels.sku"),
     };
 
     const CATEGORY_LABELS: Record<string, string> = {
-        BIDIRECTIONAL: "Bidireccional",
-        TO_PRIMARY: "De WooCommerce a Order",
-        TO_SECONDARY: "De Order a WooCommerce",
+        BIDIRECTIONAL: t("product_sync_config.modal.fields.values.bidirectional"),
+        TO_PRIMARY: t("product_sync_config.modal.fields.values.to_primary"),
+        TO_SECONDARY: t("product_sync_config.modal.fields.values.to_secondary"),
     };
 
     const FIELD_MAP: Record<string, string> = {
@@ -63,7 +65,7 @@ export function ProductSyncModal({fields, updateConfig, isOpen, close}: {
                 initial[key] = {
                     enabled: !!real || !!virtual,
                     direction: {
-                        label: virtual ? "Stock virtual de Order" : "Stock real de Order",
+                        label: virtual ? t("product_sync_config.modal.fields.values.virtual_stock") : t("product_sync_config.modal.fields.values.real_stock"),
                         value: virtual ? "VIRTUAL" : "REAL",
                     },
                 };
@@ -176,7 +178,9 @@ export function ProductSyncModal({fields, updateConfig, isOpen, close}: {
                             color: integrationsTheme.colors.orderSecondary.orderSecondary100,
                         }}
                     >
-                      Selecciona los campos a sincronizar
+                      {
+                          t("product_sync_config.modal.title")
+                      }
                     </span>
                                 </SimpleGrid.Item>
                                 <SimpleGrid.Item
@@ -333,7 +337,7 @@ export function ProductSyncModal({fields, updateConfig, isOpen, close}: {
                                 size="xl"
                                 htmlProps={{ style: { width: "100%" }, type: "submit" }}
                             >
-                                Guardar
+                                {t("product_sync_config.modal.btn")}
                             </Button>
                         </SimpleGrid.Item>
                     </SimpleGrid>

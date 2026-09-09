@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import { HashRouter } from "react-router-dom";
 import "./i18n.ts";
 import { ErrorBoundaryWithNavigate } from "./components/ErrorBoundary/ErrorBoundary.tsx";
-import { integrationsTheme, AppThemeProvider } from "@stelsolutions/stelorder-catalog";
+import {integrationsTheme, AppThemeProvider, IconPreloadProvider} from "@stelsolutions/stelorder-catalog";
 import { IntegrationProvider } from "./context/integration/IntegrationContext.tsx";
 import { StyleSheetManager } from "styled-components"; // 1. Importar el gestor de estilos de styled-components
 
@@ -15,6 +15,7 @@ import indexCss from "./index.css?inline";
 import appCss from "./App.css?inline";
 import { RootProvider } from "./context/RootContext/RootContext.tsx";
 import {createObserveFontFaceRules} from "./observers/CSSFontFaceObserver.ts";
+import {ErrorContextProvider} from "./context/ErrorContext/ErrorContext.tsx";
 
 // 3. Obtenemos el contenedor host donde montaremos el Shadow DOM
 const hostElement = document.getElementById("root");
@@ -63,9 +64,13 @@ if (hostElement) {
           <HashRouter>
             <ErrorBoundaryWithNavigate>
               <AppThemeProvider theme={integrationsTheme}>
-                <IntegrationProvider>
-                  <App />
-                </IntegrationProvider>
+                <IconPreloadProvider variants={['success', 'automatic-task']}>
+                  <ErrorContextProvider>
+                    <IntegrationProvider>
+                      <App />
+                    </IntegrationProvider>
+                  </ErrorContextProvider>
+                </IconPreloadProvider>
               </AppThemeProvider>
             </ErrorBoundaryWithNavigate>
           </HashRouter>

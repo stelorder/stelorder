@@ -97,5 +97,82 @@
   "modal_select_state": {
     "order_title": "Select the orders statuses to synchronize",
     "invoice_title": "Select the invoice statuses to synchronize"
+  },
+  "product_sync_section": {
+    "update_now": "Synchronize now"
+  },
+  "sync_progress_indicator": {
+    "loading": "Loading...",
+    "syncing": "Publishing products...",
+    "success": "Publishing completed!",
+    "label_1": "Publishing products ·",
+    "label_2": "of"
+  },
+  "success_event_job": {
+    "title": "Products synchronized",
+    "message": "All products synchronized successfully.",
+    "button": "Close"
+  },
+  "select_category_modal": {
+    "title": "Synchronize products",
+    "select_label": "Product categories",
+    "select_placeholder": "Select categories",
+    "select_all": "All categories",
+    "search_placeholder": "Search",
+    "no_categories": "No categories match your search",
+    "btn_accept": "Accept",
+    "products_no_sync": "products without synchronization",
+    "alert": {
+      "1": "The maximum number of products that can be synchronised is",
+      "2": "Only the first",
+      "3": "products will be synchronised; to synchronise the rest, you will need to repeat the process."
+    }
+  },
+  "sync_error_modal": {
+    "title": "Synchronization error",
+    "message": {
+      "of": "of",
+      "failed_message": "products have not been synchronized correctly."
+    },
+    "label": "Products with error",
+    "product": "Product",
+    "btn_close": "Close",
+    "btn_retry": "Retry synchronization"
+  },
+  "sync_status": {
+    "processing": "Processing products...",
+    "success": "Synchronization completed!",
+    "sync_message": {
+      "of": "of",
+      "message": "Synchronizing products ·"
+    }
+  },
+  "product_sync_config": {
+    "title": "Products And Stock",
+    "modal_btn": "Field Configuration",
+    "warehouse_label": "Warehouse Selection",
+    "sync_fields": "Synchronized Fields",
+    "modal": {
+      "title": "Select the fields to synchronize",
+      "btn": "Save",
+      "fields" : {
+        "values": {
+          "real_stock": "Real stock of Order",
+          "virtual_stock": "Virtual stock of Order",
+          "bidirectional": "Bidirectional",
+          "to_primary": "From WooCommerce to Order",
+          "to_secondary": "From Order to WooCommerce"
+        },
+        "labels": {
+          "name": "Name",
+          "price": "Base selling price",
+          "description": "Description",
+          "barcode": "Barcode",
+          "stock": "Stock",
+          "image": "Image",
+          "sku": "Reference/SKU"
+        }
+      }
+    }
   }
 }

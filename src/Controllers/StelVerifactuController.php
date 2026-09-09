@@ -7,8 +7,10 @@ use InvalidArgumentException;
 
 use Stel\Verifactu\Controllers\DTOs\CreateLocalSubscriptionDto;
 use Stel\Verifactu\Controllers\DTOs\ExistingProductById;
+use Stel\Verifactu\Controllers\DTOs\PublishProductsDto;
 use Stel\Verifactu\Controllers\DTOs\QueryProductsDto;
 use Stel\Verifactu\Controllers\DTOs\SaveExternalProduct;
+use Stel\Verifactu\Controllers\DTOs\SaveExternalProductIdDto;
 use Stel\Verifactu\Controllers\DTOs\SaveExternalProductImages;
 use Stel\Verifactu\Controllers\DTOs\SaveExternalProductStock;
 use Stel\Verifactu\Controllers\DTOs\SubscriptionDTO;
@@ -28,6 +30,7 @@ use Stel\Verifactu\Services\DTOs\SaveWebhookDTO;
 use Stel\Verifactu\Services\IntegrationService;
 use Stel\Verifactu\Services\InvoiceOrderDetailsService;
 use Stel\Verifactu\Services\ProductService;
+use Stel\Verifactu\Services\SyncService;
 use Stel\Verifactu\Services\WCWebhookService;
 use Stel\Verifactu\Services\StelService;
 use WP_Error;
@@ -160,7 +163,7 @@ class StelVerifactuController {
 			// Here we register the readable endpoint for collections.
 			array(
 				'methods'   => 'POST',
-				'callback'  => array( $this, 'save_legacy_subscriptions'),
+				'callback'  => array( $this, 'save_legacy_subscriptions' ),
 				'permission_callback' => array( $this, 'check_auth_platform' ),
 			)
 		) );
@@ -178,6 +181,13 @@ class StelVerifactuController {
                 'permission_callback' => array( $this, 'check_auth_platform' ),
             )
         ) );
+        register_rest_route( $this->namespace, '/' . "products/external-id", array(
+            array(
+                'methods'   => 'PUT',
+                'callback'  => array( $this, 'save_external_product_id'),
+                'permission_callback' => array( $this, 'check_auth_platform' ),
+            )
+        ) );
         register_rest_route( $this->namespace, '/' . "query/exists/products", array(
             array(
                 'methods'   => 'POST',
@@ -189,6 +199,41 @@ class StelVerifactuController {
             array(
                 'methods'   => 'PUT',
                 'callback'  => array( $this, 'save_external_product_stock'),
+                'permission_callback' => array( $this, 'check_auth_platform' ),
+            )
+        ) );
+        register_rest_route( $this->namespace, '/' . "products/categories", array(
+            array(
+                'methods'   => 'GET',
+                'callback'  => array( $this, 'get_available_product_categories' ),
+                'permission_callback' => array( $this, 'check_auth_platform' ),
+            )
+        ) );
+        register_rest_route( $this->namespace, '/' . "integrations/events/products", array(
+            array(
+                'methods'   => 'POST',
+                'callback'  => array( $this, 'publish_products'),
+                'permission_callback' => array( $this, 'check_auth_platform' ),
+            )
+        ) );
+        register_rest_route( $this->namespace, '/' . "integrations/events/products", array(
+            array(
+                'methods'   => 'GET',
+                'callback'  => array( $this, 'get_published_products'),
+                'permission_callback' => array( $this, 'check_auth_platform' ),
+            )
+        ) );
+        register_rest_route( $this->namespace, '/' . "integrations/events/local/products", array(
+            array(
+                'methods'   => 'GET',
+                'callback'  => array( $this, 'get_pending_product_event'),
+                'permission_callback' => array( $this, 'check_auth_platform' ),
+            )
+        ) );
+        register_rest_route( $this->namespace, '/' . "integrations/events/products", array(
+            array(
+                'methods'   => 'DELETE',
+                'callback'  => array( $this, 'delete_pending_product_event'),
                 'permission_callback' => array( $this, 'check_auth_platform' ),
             )
         ) );
@@ -930,6 +975,99 @@ class StelVerifactuController {
         } catch ( EntityNotFound ) {
             return new WP_Error( 'rest_entity_not_found', 'Product not found with the provided variation_id or parent_id', array( 'status' => 404 ) );
         } catch ( \Throwable $e ) {
+            return new WP_Error( 'rest_internal_error', $e->getMessage(), array(
+                'status' => 500,
+                'trace' => $e->getTraceAsString()
+            ) );
+        }
+    }
+
+    public function get_available_product_categories( WP_REST_Request $request ): WP_Error|WP_REST_Response {
+        try {
+
+            $categories = ProductService::getInstance()->getAvailableProductCategories();
+            return rest_ensure_response( $categories );
+        } catch ( \Throwable $e ) {
+            return new WP_Error( 'rest_internal_error', $e->getMessage(), array(
+                'status' => 500,
+                'trace' => $e->getTraceAsString()
+            ) );
+        }
+    }
+
+    public function publish_products(WP_REST_Request $request): WP_Error|WP_REST_Response {
+
+        $params = $request->get_json_params();
+        if ( !is_array($params) || empty($params) ) {
+            return new WP_Error( 'rest_invalid_argument', 'Request body must be an array not empty', array( 'status' => 400 ) );
+        }
+
+        try {
+            $dto = DTODeserializerValidator::getInstance()->deserializeAndValidate($params, PublishProductsDto::class);
+            $eventId = SyncService::getInstance()->syncProducts($dto->productIds);
+            return new WP_REST_Response( [ "eventId" => $eventId ], WP_Http::OK );
+        } catch ( InvalidArgumentException $e ) {
+            return new WP_Error( 'rest_invalid_argument', $e->getMessage(), array( 'status' => 400 ) );
+        } catch ( \Throwable $e ) {
+            return new WP_Error( 'rest_internal_error', $e->getMessage(), array(
+                'status' => 500,
+                'trace' => $e->getTraceAsString()
+            ) );
+        }
+    }
+
+    public function get_published_products(WP_REST_Request $request): WP_Error|WP_REST_Response {
+        try {
+            $publishedProducts = SyncService::getInstance()->fetchPublishedProducts();
+            return new WP_REST_Response( $publishedProducts, WP_Http::OK );
+        } catch (\Throwable $e) {
+            return new WP_Error( 'rest_internal_error', $e->getMessage(), array(
+                'status' => 500,
+                'trace' => $e->getTraceAsString()
+            ));
+        }
+
+    }
+
+    public function delete_pending_product_event(WP_REST_Request $request): WP_Error|WP_REST_Response {
+        try {
+            $deletedEventId = SyncService::getInstance()->deletePendingEventProducts();
+            return new WP_REST_Response( ['eventId' => $deletedEventId], WP_Http::OK );
+        } catch ( \Throwable $e ) {
+            return new WP_Error( 'rest_internal_error', $e->getMessage(), array(
+                'status' => 500,
+                'trace' => $e->getMessage()
+            ));
+        }
+    }
+
+    public function get_pending_product_event(WP_REST_Request $request): WP_Error|WP_REST_Response {
+        try {
+            $pendingEvent = SyncService::getInstance()->getPendingEventProducts();
+            return new WP_REST_Response( ['eventId' => $pendingEvent], WP_Http::OK );
+        } catch ( \Throwable $e ) {
+            return new WP_Error( 'rest_internal_error', $e->getMessage(), array(
+                'status' => 500,
+                'trace' => $e->getMessage()
+            ));
+        }
+    }
+
+    public function save_external_product_id(WP_REST_Request $request): WP_Error|WP_REST_Response {
+        $params = $request->get_json_params();
+        if ( !is_array($params) || empty($params) ) {
+            return new WP_Error( 'rest_invalid_argument', 'Request body must be an array not empty', array( 'status' => 400 ) );
+        }
+
+        try {
+            $dto = DTODeserializerValidator::getInstance()->deserializeAndValidate($params, SaveExternalProductIdDto::class);
+            ProductService::getInstance()->saveExternalProductId($dto);
+            return new WP_REST_Response( status:WP_Http::NO_CONTENT );
+        } catch (InvalidArgumentException $e) {
+            return new WP_Error( 'rest_invalid_argument', $e->getMessage(), array( 'status' => 400 ) );
+        } catch (EntityNotFound) {
+            return new WP_Error( 'rest_entity_not_found', 'Product not found with the provided variation_id or parent_id', array( 'status' => 404 ) );
+        } catch (\Throwable $e) {
             return new WP_Error( 'rest_internal_error', $e->getMessage(), array(
                 'status' => 500,
                 'trace' => $e->getTraceAsString()

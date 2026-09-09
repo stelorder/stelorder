@@ -97,5 +97,82 @@
   "modal_select_state": {
     "order_title": "Selecciona los estados de los pedidos a sincronizar",
     "invoice_title": "Selecciona los estados de las facturas a sincronizar"
+  },
+  "product_sync_section": {
+    "update_now": "Sincronizar ahora"
+  },
+  "sync_progress_indicator": {
+    "loading": "Cargando...",
+    "syncing": "Publicando productos...",
+    "success": "¡Publicación completada!",
+    "label_1": "Publicando productos ·",
+    "label_2": "de"
+  },
+  "success_event_job": {
+    "title": "Productos sincronizados",
+    "message": "Todos los productos sincronizados correctamente.",
+    "button": "Cerrar"
+  },
+  "select_category_modal": {
+    "title": "Sincronizar productos",
+    "select_label": "Categorías de productos",
+    "select_placeholder": "Seleccionar categorías",
+    "select_all": "Todas las categorías",
+    "search_placeholder": "Buscar",
+    "no_categories": "No hay categorías que coincidan con tu búsqueda",
+    "btn_accept": "Aceptar",
+    "products_no_sync": "productos sin sincronizar",
+    "alert": {
+      "1": "El número máximo de productos que se pueden sincronizar es de",
+      "2": "Solo se sincronizarán los primero",
+      "3": "productos seleccionados; para sincronizar el resto, deberás repetir el proceso."
+    }
+  },
+  "sync_error_modal": {
+    "title": "Error al sincronizar",
+    "message": {
+      "of": "de",
+      "failed_message": "productos no se han sincronizado correctamente."
+    },
+    "label": "Productos con error",
+    "product": "Producto",
+    "btn_close": "Cerrar",
+    "btn_retry": "Reintentar sincronización"
+  },
+  "sync_status": {
+    "processing": "Procesando productos...",
+    "success": "¡Sincronización completada!",
+    "sync_message": {
+      "of": "de",
+      "message": "Sincronizando productos ·"
+    }
+  },
+  "product_sync_config": {
+    "title": "Productos y Stock",
+    "modal_btn": "Configuración de campos",
+    "warehouse_label": "Selección de almacén",
+    "sync_fields": "campos sincronizados",
+    "modal": {
+      "title": "Selecciona los campos a sincronizar",
+      "btn": "Guardar",
+      "fields" : {
+        "values": {
+          "real_stock": "Stock real de Order",
+          "virtual_stock": "Stock virtual de Order",
+          "bidirectional": "Bidireccional",
+          "to_primary": "De WooCommerce a Order",
+          "to_secondary": "De Order a WooCommerce"
+        },
+        "labels": {
+          "name": "Nombre",
+          "price": "Precio base de venta",
+          "description": "Descripción",
+          "barcode": "Código de barras",
+          "stock": "Stock",
+          "image": "Imagen",
+          "sku": "Referencia/SKU"
+        }
+      }
+    }
   }
 }

@@ -6,6 +6,7 @@ class ErrorMessages {
     public const INVALID_RECORD = 'Each record must be a string and have only minuscule letters and _: ';
     public const INVALID_PLATFORM_ID = 'Platform ID must not be empty and must be a valid UUID.';
     public const INVALID_INTEGRATION_ID = 'Integration ID must not be empty and must be a valid UUID.';
+    public const INVALID_EVENT_ID = 'Event ID must not be empty and must be a valid UUID.';
     public const INVALID_ENTITY = 'Entity must not be empty and must be a string.';
     public const INVALID_ENTITY_ARRAY = 'Entities must be an array not empty .';
     public const INVALID_RECORDS = 'Records must not be empty.';

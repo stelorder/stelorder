@@ -10,7 +10,8 @@
     "action": "Action",
     "direction": "Direction",
     "status": "Statut",
-    "subjobs": "Sous-tâches"
+    "subjobs": "Sous-tâches",
+    "entity": "Voir l’entité source"
   },
   "placeholders": {
     "column_search": "Rechercher"
@@ -115,6 +116,6 @@
     "last": "Dernière",
     "perPage": "par page",
     "elements_template": "Affichage de {from} à {to} sur {count}"
-  }
-
+  },
+  "view": "Voir"
 }

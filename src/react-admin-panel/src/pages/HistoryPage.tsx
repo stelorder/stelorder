@@ -16,7 +16,8 @@ import {HistoryResult, useFetchHistory} from "../hooks/useFetchHistory";
 import {RootContext} from "../context/RootContext/RootContext.context";
 import {
   EventActionTranslates,
-  EventDirection, EventDirectionTranslates,
+  EventDirection,
+  EventDirectionTranslates,
   EventStatus,
   EventStatusTranslates,
   EventTypeTranslates,
@@ -24,6 +25,7 @@ import {
 } from "../utils/eventEnums";
 import {useTranslation} from "react-i18next";
 import {templateHelper} from "../utils/templateHelper.ts";
+import {useViewSourceJobEntity} from "../hooks/useViewSourceJobEntity.ts";
 
 const estadoVariant = {
   COMPLETED: {
@@ -43,8 +45,10 @@ const estadoVariant = {
 
 const defaultOptions = [
   { label: "5", value: "5" },
-  { label: "10", value: "10" },
-  { label: "20", value: "20" },
+  { label: "25", value: "25" },
+  { label: "50", value: "50" },
+  { label: "100", value: "100" },
+  { label: "200", value: "200" },
 ] as SelectOption[];
 
 export function HistoryPage() {
@@ -64,6 +68,7 @@ export function HistoryPage() {
     });
 
   const id = useId();
+  const { viewSourceJobEntity } = useViewSourceJobEntity();
 
   return (
     <>
@@ -115,6 +120,7 @@ export function HistoryPage() {
                 <th>{jobsTranslation("columns.date")}</th>
                 <th>{jobsTranslation("columns.status")}</th>
                 <th>{jobsTranslation("columns.subjobs")}</th>
+                <th>{jobsTranslation("columns.entity")}</th>
               </tr>
             </thead>
             <tbody>
@@ -214,6 +220,40 @@ export function HistoryPage() {
                         </span>
                       );
                     })}
+                  </td>
+                  <td>
+                    {
+                      (() => {
+                        const url = viewSourceJobEntity({
+                          id: r.entityId,
+                          direction: r.direction || EventDirection.TO_PRIMARY,
+                          type: r.type
+                        })
+                        if (!url) return null
+
+                        return (
+                            <a
+                                href={url}
+                                target="_blank"
+                                style={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                  textDecoration: "none",
+                                  color: theme.colors.orderSecondary.orderSecondary70,
+                                  gap: 8,
+                                }}
+                            >
+                              <Icon
+                                  variant="file"
+                                  height="18px"
+                                  width="18px"
+                                  color="inherit"
+                              />
+                              <span>{jobsTranslation('view')}</span>
+                            </a>
+                        )
+                      })()
+                    }
                   </td>
                 </tr>
               ))}

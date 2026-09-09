@@ -10,7 +10,8 @@
     "action": "Acción",
     "direction": "Dirección",
     "status": "Estado",
-    "subjobs": "Subtrabajos"
+    "subjobs": "Subtrabajos",
+    "entity": "Ver Entidad Origen"
   },
   "placeholders": {
     "column_search": "Buscar"
@@ -115,5 +116,6 @@
     "last": "Última",
     "perPage": "por página",
     "elements_template": "Mostrando {from} a {to} de {count}"
-  }
+  },
+  "view": "Ver"
 }

@@ -10,7 +10,8 @@
     "action": "Action",
     "direction": "Direction",
     "status": "Status",
-    "subjobs": "Subjobs"
+    "subjobs": "Subjobs",
+    "entity": "View Source Entity"
   },
   "placeholders": {
     "column_search": "Search"
@@ -115,5 +116,6 @@
     "last": "Last",
     "perPage": "per page",
     "elements_template": "Showing {from} to {to} of {count}"
-  }
+  },
+  "view": "View"
 }

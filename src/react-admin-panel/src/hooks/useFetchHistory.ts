@@ -17,6 +17,7 @@ type EventData = {
   subjobs?: Partial<Record<SubjobType, number>>;
   reason?: string;
   creationDateTime: string;
+  entityId: string;
 };
 
 export type HistoryResult = {

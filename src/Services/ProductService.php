@@ -10,6 +10,7 @@ use http\Exception\InvalidArgumentException;
 use Stel\Verifactu\Controllers\DTOs\ExistingProductById;
 use Stel\Verifactu\Controllers\DTOs\QueryProductsDto;
 use Stel\Verifactu\Controllers\DTOs\SaveExternalProduct;
+use Stel\Verifactu\Controllers\DTOs\SaveExternalProductIdDto;
 use Stel\Verifactu\Controllers\DTOs\SaveExternalProductImages;
 use Stel\Verifactu\Controllers\DTOs\SaveExternalProductStock;
 use Stel\Verifactu\Exceptions\EntityNotFound;
@@ -162,6 +163,20 @@ class ProductService {
         return $updatedProduct;
     }
 
+    /**
+     * @throws EntityNotFound
+     */
+    public function saveExternalProductId(SaveExternalProductIdDto $dto): void
+    {
+        $product = $this->getProductById($dto->variation_id ?: $dto->parent_id);
+        if (!empty($dto->externalId)) {
+            $product->add_meta_data(ProductRepository::SYNC_META_FIELD, $dto->externalId, true);
+        } else {
+            $product->delete_meta_data(ProductRepository::SYNC_META_FIELD);
+        }
+        $this->productRepository->save($product);
+    }
+
     private function updateStock(float $quantity, \WC_Product $product): void {
 
 		if ($product instanceof \WC_Product_Variation) {
@@ -175,6 +190,23 @@ class ProductService {
 
 	    $product->set_manage_stock(true);
 	    $product->set_stock_quantity($quantity);
+    }
+
+    /** Fetch the available product categories from the repository.
+     * Each category includes its name, the count of products in that category, and an array of product IDs.
+     * @return array{
+     *      "name": string,
+     *      "count": int,
+     *      "products": int[]
+     *  }[]
+     * @throws Exception
+     */
+    public function getAvailableProductCategories(): array {
+        $result = $this->productRepository->getAvailableProductCategories();
+        if (is_wp_error($result)) {
+            throw new Exception("Error fetching product categories: " . $result->get_error_message());
+        }
+        return $result;
     }
 
     private function getProductoFromRepo(string $productId, WCDataRepository $repo) {
