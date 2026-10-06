@@ -1,5 +1,5 @@
 import {EventJobsData} from "../../../hooks/360/event-jobs";
-import {Icon, IntegrationsThemeType, ProgressBar, SimpleGrid} from "@stelsolutions/stelorder-catalog";
+import {Icon, IntegrationsThemeType, ProgressBar} from "@stelsolutions/stelorder-catalog";
 import {useTheme} from "styled-components";
 import {useCalcEventJobs} from "./useCalcEventJobs.ts";
 import {useTranslation} from "react-i18next";
@@ -25,17 +25,16 @@ export function EventStatusMeter({ eventJobs, isProcessing }: {
         width="14px"
     />;
     return (
-        <SimpleGrid gap={8}>
-            <SimpleGrid.Item
-                htmlProps={{
-                    style: {
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "4px",
-                        justifyContent: "flex-end",
-                    },
-                }}
-            >
+        <div style={{
+            display: "flex",
+            flexDirection: "column",
+            gap:8,
+        }}>
+            <div style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "4px"
+            }}>
                 {
                     eventJobs?.event.status && eventJobs.event.status !== 'PENDING' ? successIcon : syncIcon
                 }
@@ -53,17 +52,8 @@ export function EventStatusMeter({ eventJobs, isProcessing }: {
                             label
                     }
                 </div>
-            </SimpleGrid.Item>
-            <SimpleGrid.Item
-                htmlProps={{
-                    style: {
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "4px",
-                        justifyContent: "flex-end",
-                    },
-                }}
-            >
+            </div>
+            <div>
                 <ProgressBar
                     now={now}
                     color={color}
@@ -71,12 +61,11 @@ export function EventStatusMeter({ eventJobs, isProcessing }: {
                         theme.colors.orderSecondary
                             .orderSecondary0
                     }
-                    width={"205px"}
                     height={"6px"}
                     label={false}
                     borderColor={theme.colors.blue.blue30}
                 />
-            </SimpleGrid.Item>
-        </SimpleGrid>
+            </div>
+        </div>
     )
 }

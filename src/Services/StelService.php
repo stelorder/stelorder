@@ -12,6 +12,7 @@ use RuntimeException;
 use Stel\Verifactu\Domain\EventActionType;
 use Stel\Verifactu\Domain\EventType;
 use Stel\Verifactu\Exceptions\EntityNotFound;
+use Stel\Verifactu\Exceptions\ExternalHttpException;
 use Stel\Verifactu\Logs\LogUtils;
 use Stel\Verifactu\Logs\TransientLog;
 use Stel\Verifactu\Repositories\IntegrationRepository;
@@ -41,6 +42,7 @@ class StelService
     // Constructor privado para evitar la instanciación directa
     private function __construct()
     {
+
         $this->integrationRepository = IntegrationRepository::getInstance();
         $this->wcWebhookService = WCWebhookService::getInstance();
         $this->setRequestConfig();
@@ -324,22 +326,22 @@ class StelService
 
 	}
 
-    public function getInvoices(string $integrationId, string $platformId, string $token, int $firstElement = 0, int $pageSize = 30) {
-        return $this->getPaginatedResource('invoices', $integrationId, $platformId, $token, $firstElement, $pageSize);
+    public function getInvoices(string $integrationId, string $platformId, string $token, array $params) {
+        return $this->getPaginatedResource('invoices', $integrationId, $platformId, $token, $params);
     }
 
-    public function getOrders(string $integrationId, string $platformId, string $token, int $firstElement = 0, int $pageSize = 30) {
-        return $this->getPaginatedResource('salesOrders', $integrationId, $platformId, $token, $firstElement, $pageSize);
+    public function getOrders(string $integrationId, string $platformId, string $token, array $params = []) {
+        return $this->getPaginatedResource('salesOrders', $integrationId, $platformId, $token, $params);
     }
 
-    private function getPaginatedResource(string $resource, string $integrationId, string $platformId, string $token, int $firstElement = 0, int $pageSize = 30) {
+    private function getPaginatedResource(string $resource, string $integrationId, string $platformId, string $token, array $params = []) {
         if (empty($integrationId) || !is_string($integrationId) || !preg_match("/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/", $integrationId)) {
             throw new InvalidArgumentException(ErrorMessages::INVALID_INTEGRATION_ID);
         }
         if (empty($platformId) || !is_string($platformId) || !preg_match("/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/", $platformId)) {
             throw new InvalidArgumentException(ErrorMessages::INVALID_PLATFORM_ID);
         }
-        $url = self::STEL_API_MICROSERVICE_URL . "integrations/{$integrationId}/platforms/{$platformId}/{$resource}?firstElement={$firstElement}&pageSize={$pageSize}";
+        $url = self::STEL_API_MICROSERVICE_URL . "integrations/{$integrationId}/platforms/{$platformId}/{$resource}?" . http_build_query($params);
         $response = wp_remote_get($url, [
             'headers' => [
                 'Authorization' => "Bearer {$token}",
@@ -778,8 +780,8 @@ class StelService
     }
 
 
-    public function getEvents(string $integrationId, string $token, int $firstElement = 0, int $pageSize = 30): array {
-        $url = self::STEL_API_MICROSERVICE_URL . "integrations/". $integrationId ."/jobs?firstElement={$firstElement}&pageSize={$pageSize}";
+    public function getEvents(string $integrationId, string $token, array $queryVars = []): array {
+        $url = self::STEL_API_MICROSERVICE_URL . "integrations/". $integrationId ."/jobs?" . http_build_query($queryVars);
         $response = wp_remote_get($url, array(
             'headers' => array(
                 'Authorization' => 'Bearer ' . $token,
@@ -821,11 +823,17 @@ class StelService
             'body' => wp_json_encode($body),
         ]);
         $http_code = wp_remote_retrieve_response_code($response);
+
+        $responseStringBody = wp_remote_retrieve_body($response);
+        $responseBody = json_decode($responseStringBody, true);
+
         if (is_wp_error($response) || $http_code >= WP_Http::BAD_REQUEST) {
-            throw new RuntimeException("HTTP Error {$http_code}: " . wp_remote_retrieve_body($response));
+            if (!is_array($responseBody)) {
+                throw new RuntimeException("HTTP Error {$http_code}: " . $responseStringBody);
+            }
+            throw new ExternalHttpException("There was an error publishing the event.", $http_code, $responseBody);
         }
-        $responseBody = wp_remote_retrieve_body($response);
-        $responseBody = json_decode($responseBody, true);
+
         if (!is_array($responseBody)) {
             return null;
         }

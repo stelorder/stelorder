@@ -3,7 +3,9 @@ import {API_URL} from "../../config/SyncNameConfig.ts";
 import {useCallback, useMemo, useState} from "react";
 
 export function usePublishProducts({ maxProducts, productIds, onComplete, onError } :
-    { maxProducts:number, productIds: Set<number>; onComplete?: (eventId: string) => void; onError?: () => void }) {
+    { maxProducts:number, productIds: Set<number>; onComplete?: (eventId: string) => void; onError?: (
+        errorData?: Record<string, unknown>
+        ) => void }) {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const onCompleteCallback = useCallback((data: {eventId: string}) => {
         setIsLoading(false);
@@ -14,10 +16,10 @@ export function usePublishProducts({ maxProducts, productIds, onComplete, onErro
         }
     }, [onComplete, onError]);
 
-    const onErrorCallback = useCallback(() => {
+    const onErrorCallback = useCallback((err: Record<string, unknown> | undefined) => {
         setIsLoading(false);
         if (onError) {
-            onError();
+            onError(err);
         }
     }, [onError]);
 

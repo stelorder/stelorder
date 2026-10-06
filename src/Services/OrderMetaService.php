@@ -16,7 +16,7 @@ class OrderMetaService {
     }
 
     private function isValidMetaKey(string $metaKey) {
-        return !empty(trim($metaKey));
+        return !empty(trim($metaKey, "\n\r\t\v\x00"));
     }
 
     private function isValidOrderId(int $orderId) {

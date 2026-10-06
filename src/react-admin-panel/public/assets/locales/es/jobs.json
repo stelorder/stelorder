@@ -1,4 +1,9 @@
 {
+  "help": {
+    "columns": {
+      "subjobs": "Los subtrabajos son pequeñas tareas que se realizan automáticamente como parte de un trabajo principal.\n\nPor ejemplo, al crear un pedido, puede ser necesario realizar otras tareas, como crear o sincronizar los productos y clientes relacionados con ese pedido.\n\nEstas tareas se ejecutan automáticamente para completar correctamente el proceso principal.\n"
+    }
+  },
   "empty_table": "No hay trabajos en el historial.",
   "filters": {
     "global_search": "Buscar",

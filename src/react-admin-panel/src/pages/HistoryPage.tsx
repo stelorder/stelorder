@@ -1,11 +1,11 @@
 import {SelectOption} from "@stelsolutions/stelorder-catalog/dist/components/form/form-select/form-select-types";
-import {useContext, useId, useState} from "react";
+import {useContext, useEffect, useId, useRef, useState} from "react";
 import {
-  Button,
+  Button, Column,
   Icon,
   IntegrationsThemeType,
   Modal,
-  PaginatedTable,
+  Pagination, SearchableTable,
   SimpleGrid,
   Spinner,
   Status,
@@ -26,6 +26,7 @@ import {
 import {useTranslation} from "react-i18next";
 import {templateHelper} from "../utils/templateHelper.ts";
 import {useViewSourceJobEntity} from "../hooks/useViewSourceJobEntity.ts";
+import {HelpTooltip} from "../components/HelpTooltip/HelpTooltip.tsx";
 
 const estadoVariant = {
   COMPLETED: {
@@ -51,12 +52,31 @@ const defaultOptions = [
   { label: "200", value: "200" },
 ] as SelectOption[];
 
+type SortField = 'creationDateTime' | 'direction' | 'status'
+type SortDirection = 'asc' | 'desc'
+
 export function HistoryPage() {
+  const [sortDirection, setSortDirection] = useState<SortDirection | undefined>();
+  const [sortColumn, setSortColumn] = useState<SortField | undefined>();
   const theme = useTheme() as IntegrationsThemeType;
-  const { root } = useContext(RootContext) || { root: document.body };
+  const { root } = (useContext(RootContext) || { root: document.body }) as { root: HTMLDivElement };
   const [openTextErrorModal, setOpenTextErrorModal] = useState(false);
   const [errorText, setErrorText] = useState<string | null>(null);
-  const { t: jobsTranslation } = useTranslation("jobs"); 
+  const { t: jobsTranslation } = useTranslation("jobs");
+
+  const moveToRef = useRef<((page: number) => void) | null>(null);
+
+  const toggleSort = (field: SortField) => {
+    if (sortColumn !== field) {
+      setSortColumn(field);
+      setSortDirection("asc");
+    } else if (sortDirection === "asc") {
+      setSortDirection("desc");
+    } else {
+      setSortColumn(undefined);
+      setSortDirection(undefined);
+    }
+  };
 
 
   const { isLoading, data, paginationInfo, paginationConfig, fetchAsyncData } =
@@ -65,7 +85,17 @@ export function HistoryPage() {
       defaultOptions,
       getFetchPaginatedData: (fetchResources) =>
         fetchResources.fetchPaginatedHistoryData,
+      sortColumn,
+      sortDirection,
+
     });
+
+  useEffect(() => {
+    if (!sortDirection && !sortColumn) return;
+    if (moveToRef.current) {
+      moveToRef.current(1);
+    }
+  }, [sortColumn, sortDirection]);
 
   const id = useId();
   const { viewSourceJobEntity } = useViewSourceJobEntity();
@@ -92,35 +122,45 @@ export function HistoryPage() {
             paddingBottom: "20px",
           }}
         >
-          <PaginatedTable
-            fetchData={fetchAsyncData}
-            elementsPerPage={defaultOptions}
-            paginationConfig={paginationConfig}
-            totalPages={paginationInfo?.totalPages || 1}
-            paginationText={{
-              paginationConfigText: {
-                listingTextTemplate: (firstElementPageNumber: number, lastElementPageNumber: number, lastElementNumber: number) => {
-                  const params = { from: firstElementPageNumber, to: lastElementPageNumber, count: lastElementNumber };
-                  const template = jobsTranslation("pagination.elements_template")
-                  return templateHelper(template, params);
-                },
-                perPageText: jobsTranslation("pagination.perPage"),
-              },
-              paginationControlText: {
-               firstPage: jobsTranslation("pagination.first"),
-               lastPage: jobsTranslation("pagination.last"),
-              }
-            }}
-          >
+          <SearchableTable>
             <thead>
               <tr>
-                <th>{jobsTranslation("columns.type")}</th>
-                <th>{jobsTranslation("columns.action")}</th>
-                <th>{jobsTranslation("columns.direction")}</th>
-                <th>{jobsTranslation("columns.date")}</th>
-                <th>{jobsTranslation("columns.status")}</th>
-                <th>{jobsTranslation("columns.subjobs")}</th>
-                <th>{jobsTranslation("columns.entity")}</th>
+                <Column>
+                  {jobsTranslation("columns.type")}
+                </Column>
+                <Column>
+                  {jobsTranslation("columns.action")}
+                </Column>
+                <Column
+                  sortable
+                  sortDirection={sortColumn === "direction" ? sortDirection : undefined}
+                  onSort={() => toggleSort("direction")}
+                >
+                  {jobsTranslation("columns.direction")}
+                </Column>
+                <Column
+                  sortable
+                  sortDirection={sortColumn === "creationDateTime" ? sortDirection : undefined}
+                  onSort={() => toggleSort("creationDateTime")}
+                >
+                  {jobsTranslation("columns.date")}
+                </Column>
+                <Column
+                  sortable
+                  onSort={() => toggleSort("status")}
+                  sortDirection={sortColumn === "status" ? sortDirection : undefined}
+                >
+                  {jobsTranslation("columns.status")}
+                </Column>
+                <Column>
+                  <div style={{ display: "inline-flex" }}>
+                    <span>
+                      {jobsTranslation("columns.subjobs")}
+                    </span>
+                    <HelpTooltip message={jobsTranslation("help.columns.subjobs")} maxWidth={"35vw"} alignMessage="middle" showIn={root} />
+                  </div>
+                </Column>
+                <Column>{jobsTranslation("columns.entity")}</Column>
               </tr>
             </thead>
             <tbody>
@@ -258,7 +298,28 @@ export function HistoryPage() {
                 </tr>
               ))}
             </tbody>
-          </PaginatedTable>
+          </SearchableTable>
+          <Pagination
+              movedToRef={moveToRef}
+              fetchData={fetchAsyncData}
+              elementsPerPage={defaultOptions}
+              paginationConfig={paginationConfig}
+              totalPages={paginationInfo?.totalPages || 1}
+              paginationText={{
+                paginationConfigText: {
+                  listingTextTemplate: (firstElementPageNumber: number, lastElementPageNumber: number, lastElementNumber: number) => {
+                    const params = { from: firstElementPageNumber, to: lastElementPageNumber, count: lastElementNumber };
+                    const template = jobsTranslation("pagination.elements_template")
+                    return templateHelper(template, params);
+                  },
+                  perPageText: jobsTranslation("pagination.perPage"),
+                },
+                paginationControlText: {
+                  firstPage: jobsTranslation("pagination.first"),
+                  lastPage: jobsTranslation("pagination.last"),
+                }
+              }}
+          />
         </section>
       )}
       <Modal

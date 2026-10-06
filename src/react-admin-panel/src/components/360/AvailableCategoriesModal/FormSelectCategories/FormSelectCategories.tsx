@@ -13,9 +13,10 @@ type FormSelectCategoriesProps = {
     canNotSubmit?: (isLoading: boolean) => void;
     handleExceededProductLimit: (exceeded: boolean) => void;
     maxProductsSync: number;
+    handleLoadingPublishProducts?: (isLoading: boolean) => void;
 };
 
-export function FormSelectCategories({ categories, onComplete, onError, submitRef, canNotSubmit, maxProductsSync, handleExceededProductLimit }: FormSelectCategoriesProps) {
+export function FormSelectCategories({ categories, onComplete, onError, submitRef, canNotSubmit, maxProductsSync, handleExceededProductLimit, handleLoadingPublishProducts }: FormSelectCategoriesProps) {
     const {
         selectedProductIds,
         allProductIds,
@@ -59,6 +60,11 @@ export function FormSelectCategories({ categories, onComplete, onError, submitRe
     useEffect(() => {
         handleExceededProductLimit(selectedProductIds.size > maxProductsSync);
     }, [maxProductsSync, handleExceededProductLimit, selectedProductIds]);
+
+    useEffect(()=> {
+        if (!handleLoadingPublishProducts) return;
+        handleLoadingPublishProducts(isLoadingPublished);
+    }, [isLoadingPublished, handleLoadingPublishProducts]);
 
     const renderCategory = (cat: Category, level = 0) => (
         <React.Fragment key={cat.value}>

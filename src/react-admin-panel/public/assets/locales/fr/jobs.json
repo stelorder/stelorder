@@ -1,4 +1,9 @@
 {
+  "help": {
+    "columns": {
+      "subjobs": "Les sous-tâches sont des tâches petites qui sont effectuées automatiquement dans le cadre d'un travail principal.\n\nPar exemple, lors de la création d'une commande, il peut être nécessaire d'effectuer d'autres tâches, telles que la création ou la synchronisation des produits et des clients liés à cette commande.\n\nCes tâches sont exécutées automatiquement pour compléter correctement le processus principal.\n"
+    }
+  },
   "empty_table": "Aucun job dans l’historique.",
   "filters": {
     "global_search": "Rechercher",

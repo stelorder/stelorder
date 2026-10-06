@@ -57,6 +57,7 @@ export function ModalCategorySelect({
                              }: ModalCategorySelectProps) {
     const [open, setOpen] = useState<boolean>(isOpen);
     const [canNotSubmit, setCanNotSubmit] = useState<boolean>(true);
+    const [isLoadingPublishProducts, setIsLoadingPublishProducts] = useState<boolean>(false);
     const [exceededProductLimit, setExceededProductLimit] = useState<boolean>(false);
     const { root } = useContext(RootContext) || { root: document.body };
     const { showErrorModal } = useErrorContext();
@@ -77,10 +78,11 @@ export function ModalCategorySelect({
             onCompleteCallback(eventId);
         }
     }, [setOpen, onCompleteCallback]);
-    const onError = useCallback(() => {
+    const onError = useCallback((err?: Record<string, unknown> | undefined) => {
         setOpen(false);
         setCanNotSubmit(true);
-        setTimeout(() => showErrorModal(), (animationDurationSec || 0.3)*1000);
+        const errorCode = Boolean(err) && typeof err === "object" && Boolean(err.code) ? String(err.code) : undefined;
+        setTimeout(() => showErrorModal(errorCode), (animationDurationSec || 0.3)*1000);
     }, [showErrorModal, animationDurationSec]);
 
     const handleCanNotSubmit = useCallback((isLoading: boolean) => {
@@ -113,6 +115,9 @@ export function ModalCategorySelect({
                                     e.preventDefault();
                                     setOpen(true);
                                     e.stopPropagation();
+                                },
+                                style: {
+                                    height: "28px",
                                 }
                             }}
                     >
@@ -167,6 +172,7 @@ export function ModalCategorySelect({
                                 onError={onError}
                                 canNotSubmit={handleCanNotSubmit}
                                 submitRef={submitBtnRef}
+                                handleLoadingPublishProducts={setIsLoadingPublishProducts}
                             />
                         }
                     </SimpleGrid.Item>
@@ -184,7 +190,9 @@ export function ModalCategorySelect({
                                 },
                             }}
                         >
-                            {t("select_category_modal.btn_accept")}
+                            { isLoadingPublishProducts ? t("select_category_modal.btn_accept_loading") :
+                                t("select_category_modal.btn_accept")
+                            }
                         </Button>
                     </SimpleGrid.Item>
 

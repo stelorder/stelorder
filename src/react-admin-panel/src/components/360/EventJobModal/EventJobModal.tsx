@@ -65,9 +65,10 @@ export function EventJobModal({ pendingEvent, eventJobData, clearEventJobData, h
     }, [clearEventJobData, handlePendingEventId]);
 
 
-    const onErrorRetry = useCallback(() => {
+    const onErrorRetry = useCallback((errorData?: Record<string, unknown>) => {
+        const errorCode = errorData && typeof errorData === "object" && errorData.code ? String(errorData.code) : undefined;
         closeErrorModal();
-        showErrorModal();
+        showErrorModal(errorCode);
     }, [showErrorModal, closeErrorModal]);
 
     const { publishProduct, isLoadingPublished: isLoadingRetry } = usePublishProducts({
@@ -80,6 +81,7 @@ export function EventJobModal({ pendingEvent, eventJobData, clearEventJobData, h
     useEffect(() => {
        if (!!failedJobs && failedJobs.length > 0 &&
            pendingEvent.status !== 'PENDING') {
+           // eslint-disable-next-line react-hooks/set-state-in-effect
            setOpenErrorModal(true);
        }
     }, [failedJobs, pendingEvent]);

@@ -2,9 +2,9 @@
 Contributors: stelorder
 Tags: verifactu, invoices, products, customers, stock
 Requires at least: 6.5
-Tested up to: 7.1
+Tested up to: 7.2
 Requires PHP: 8.2
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: GPL v2 or later
 License URI: [https://www.gnu.org/licenses/gpl-2.0.html](https://www.gnu.org/licenses/gpl-2.0.html)
 Requires Plugins: woocommerce
@@ -212,3 +212,17 @@ https://www.stelorder.com/politica-de-privacidad-stel-order/
 = 1.1.0 =
 
 * Added bulk product synchronization capabilities, allowing the store administrator to synchronize multiple products at once based on selected categories and using the field settings configured in the integration’s product settings.
+
+= 1.2.0 =
+
+* Added compatibility alerts in the administration panel to help identify potential conflicts with other installed plugins.
+
+* Added contextual help tooltips throughout the configuration and jobs pages to make setup and management easier.
+
+* Added sorting and filtering options to history, orders, and invoices listings for improved navigation and data management.
+
+* Improved product synchronization by providing clearer feedback when required product information is missing.
+
+* Improved the administration interface with various usability and visual enhancements, including synchronization progress indicators and configuration page refinements.
+
+* Fixed minor issues and improved overall stability.

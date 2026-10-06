@@ -1,11 +1,16 @@
 import {
   Badge,
+  Column,
   Icon,
   IntegrationsThemeType,
-  PaginatedTable, Spinner,
+  Pagination,
+  SearchableColumn,
+  SearchableTable,
+  Spinner,
 } from "@stelsolutions/stelorder-catalog";
 import { SelectOption } from "@stelsolutions/stelorder-catalog/dist/components/form/form-select/form-select-types";
 import { styled, useTheme } from "styled-components";
+import {useEffect, useRef, useState} from "react";
 import { usePaginationModel } from "../hooks/usePaginationModel";
 import { PaginatedOrdersResult, useFetchOrders } from "../hooks/useFetchOrders";
 import { parseDocumentDate } from "./utils/page-utils";
@@ -35,10 +40,15 @@ const TdPedido = styled.td`
 `;
 
 export function OrdersPage() {
+  const [sortDirection, setSortDirection] = useState<"asc" | "desc" | undefined>();
+  const [sortColumn, setSortColumn] = useState<"reference" | "creation-date" | "document-state-id" | undefined>();
+  const [debounceSearchReference, setDebounceSearchReference] = useState<string|undefined>();
+  const [searchReference, setSearchReference] = useState<string|undefined>();
   const { wpAdminUrl, stelServiceUrl, stelUrl } = useWpApiSettings();
   const theme = useTheme() as IntegrationsThemeType;
   const { t: ordersTranslation } = useTranslation("order");
 
+  const moveToRef = useRef<((page: number) => void) | null>(null);
   const { isLoading, data, paginationInfo, paginationConfig, fetchAsyncData } =
     usePaginationModel<
       PaginatedOrdersResult,
@@ -48,7 +58,37 @@ export function OrdersPage() {
       defaultOptions,
       getFetchPaginatedData: (fetchResources) =>
         fetchResources.fetchPaginatedOrdersData,
+      sortColumn,
+      sortDirection,
+      searchReference,
     });
+
+  useEffect(() => {
+    const debounce = setTimeout(() => {
+      setSearchReference(debounceSearchReference);
+    }, 1500)
+
+    return () => clearTimeout(debounce);
+  }, [debounceSearchReference]);
+
+  useEffect(() => {
+    if (!sortDirection && !sortColumn && !searchReference) return;
+    if (moveToRef.current) {
+      moveToRef.current(1);
+    }
+  }, [sortColumn, sortDirection, searchReference]);
+
+  const toggleSort = (field: "reference" | "creation-date" | "document-state-id") => {
+    if (sortColumn !== field) {
+      setSortColumn(field);
+      setSortDirection("asc");
+    } else if (sortDirection === "asc") {
+      setSortDirection("desc");
+    } else {
+      setSortColumn(undefined);
+      setSortDirection(undefined);
+    }
+  };
 
   return (
     <>
@@ -72,45 +112,57 @@ export function OrdersPage() {
             paddingBottom: "20px",
           }}
         >
-          <PaginatedTable
-            fetchData={fetchAsyncData}
-            elementsPerPage={defaultOptions}
-            paginationConfig={paginationConfig}
-            totalPages={paginationInfo?.totalPages || 1}
-            paginationText={{
-              paginationConfigText: {
-                listingTextTemplate: (firstElementPageNumber: number, lastElementPageNumber: number, lastElementNumber: number) => {
-                  const params = { from: firstElementPageNumber, to: lastElementPageNumber, count: lastElementNumber };
-                  const template = ordersTranslation("pagination.elements_template")
-                  return templateHelper(template, params);
-                },
-                perPageText: ordersTranslation("pagination.perPage"),
-              },
-              paginationControlText: {
-                firstPage: ordersTranslation("pagination.first"),
-                lastPage: ordersTranslation("pagination.last"),
-              }
-            }}
-          >
+          <SearchableTable>
             <thead>
               <tr>
-                <th>{ordersTranslation("columns.order_STEL")}</th>
-                <th>{ordersTranslation("columns.order_woocommerce")}</th>
-                <th>{ordersTranslation("columns.customer")}</th>
-                <th>{ordersTranslation("columns.status")}</th>
-                <th>{ordersTranslation("columns.date")}</th>
-                <th>{ordersTranslation("columns.amount")}</th>
-                <th>{ordersTranslation("columns.view_details")}</th>
+                <SearchableColumn
+                  sortable
+                  sortDirection={sortColumn === "reference" ? sortDirection : null}
+                  onSort={() => toggleSort("reference")}
+                  onChange={setDebounceSearchReference}
+                  value={debounceSearchReference}
+                  htmlProps={{ style: { width: "calc(100% / 7)" } }}
+                >
+                  {ordersTranslation("columns.order_STEL")}
+                </SearchableColumn>
+                <Column htmlProps={{ style: { width: "calc(100% / 7)" } }}>
+                  {ordersTranslation("columns.order_woocommerce")}
+                </Column>
+                <Column htmlProps={{ style: { width: "calc(100% / 7)" } }}>
+                  {ordersTranslation("columns.customer")}
+                </Column>
+                <Column
+                  sortable
+                  onSort={() => toggleSort("document-state-id")}
+                  sortDirection={sortColumn === "document-state-id" ? sortDirection : null}
+                  htmlProps={{ style: { width: "calc(100% / 7)" } }}
+                >
+                  {ordersTranslation("columns.status")}
+                </Column>
+                <Column
+                  sortable
+                  onSort={() => toggleSort("creation-date")}
+                  sortDirection={sortColumn === "creation-date" ? sortDirection : null}
+                  htmlProps={{ style: { width: "calc(100% / 7)" } }}
+                >
+                  {ordersTranslation("columns.date")}
+                </Column>
+                <Column htmlProps={{ style: { width: "calc(100% / 7)" } }}>
+                  {ordersTranslation("columns.amount")}
+                </Column>
+                <Column htmlProps={{ style: { width: "calc(100% / 7)" } }}>
+                  {ordersTranslation("columns.view_details")}
+                </Column>
               </tr>
             </thead>
             <tbody>
               {!(data?.paginatedResult?.totalResults) && (
-                    <tr>
-                        <td colSpan={7} style={{ textAlign: "start", padding: "16px" }}>
-                            {ordersTranslation("empty_table")}
-                        </td>
-                    </tr>
-                )}
+                <tr>
+                  <td colSpan={7} style={{ textAlign: "start", padding: "16px" }}>
+                    {ordersTranslation("empty_table")}
+                  </td>
+                </tr>
+              )}
               {data?.paginatedResult?.results.map((r, i) => (
                 <tr key={r.externalId ?? i}>
                   <td
@@ -121,7 +173,7 @@ export function OrdersPage() {
                       overflow: "visible",
                     }}
                   >
-                    <a 
+                    <a
                       href={`${stelUrl}/#deepLink=document?id=${r.id}`}
                       style={{
                         textDecoration: "none",
@@ -195,7 +247,36 @@ export function OrdersPage() {
                 </tr>
               ))}
             </tbody>
-          </PaginatedTable>
+          </SearchableTable>
+          <Pagination
+            movedToRef={moveToRef}
+            fetchData={fetchAsyncData}
+            elementsPerPage={defaultOptions}
+            paginationConfig={paginationConfig}
+            totalPages={paginationInfo?.totalPages || 1}
+            paginationText={{
+              paginationConfigText: {
+                listingTextTemplate: (
+                  firstElementPageNumber: number,
+                  lastElementPageNumber: number,
+                  lastElementNumber: number
+                ) => {
+                  const params = {
+                    from: firstElementPageNumber,
+                    to: lastElementPageNumber,
+                    count: lastElementNumber,
+                  };
+                  const template = ordersTranslation("pagination.elements_template");
+                  return templateHelper(template, params);
+                },
+                perPageText: ordersTranslation("pagination.perPage"),
+              },
+              paginationControlText: {
+                firstPage: ordersTranslation("pagination.first"),
+                lastPage: ordersTranslation("pagination.last"),
+              },
+            }}
+          />
         </section>
       )}
     </>

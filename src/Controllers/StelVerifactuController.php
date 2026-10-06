@@ -8,6 +8,8 @@ use InvalidArgumentException;
 use Stel\Verifactu\Controllers\DTOs\CreateLocalSubscriptionDto;
 use Stel\Verifactu\Controllers\DTOs\ExistingProductById;
 use Stel\Verifactu\Controllers\DTOs\PublishProductsDto;
+use Stel\Verifactu\Controllers\DTOs\QueryDocumentsDto;
+use Stel\Verifactu\Controllers\DTOs\QueryJobsDto;
 use Stel\Verifactu\Controllers\DTOs\QueryProductsDto;
 use Stel\Verifactu\Controllers\DTOs\SaveExternalProduct;
 use Stel\Verifactu\Controllers\DTOs\SaveExternalProductIdDto;
@@ -21,6 +23,7 @@ use Stel\Verifactu\Domain\InvoiceStatus;
 use Stel\Verifactu\Domain\RefundDetails;
 use Stel\Verifactu\Domain\Subscription;
 use Stel\Verifactu\Exceptions\EntityNotFound;
+use Stel\Verifactu\Exceptions\ExternalHttpException;
 use Stel\Verifactu\Logs\Logger;
 use Stel\Verifactu\Logs\TransientLog;
 use Stel\Verifactu\Repositories\SiteDetailsRepository;
@@ -102,9 +105,8 @@ class StelVerifactuController {
 				Logger::addLog( $log );
 			} catch(Exception $e) {
 				error_log("Error logging REST request: " . $e->getMessage());
-			}finally {
-				return $response;
 			}
+            return $response;
         }, 10, 3);
 
 		// Desactivamos el tracking de cambios de producto para las actualizaciones de producto
@@ -617,45 +619,49 @@ class StelVerifactuController {
 	}
 
 
-	private function extractPaginationParams( WP_REST_Request $request ) {
-		$firstElement =  filter_var( $request->get_param("firstElement") ?? 0, FILTER_VALIDATE_INT );
-		if ( $firstElement === false || $firstElement < 0 ) {
-			return new WP_Error( 'rest_invalid_argument', 'firstElement must be a non-negative integer.', array( 'status' => 400 ) );
-		}
-		$pageSize =  filter_var( $request->get_param("pageSize") ?? 30, FILTER_VALIDATE_INT );
-		if ( $pageSize === false || $pageSize < 1) {
-			return new WP_Error( "rest_invalid_argument", "pageSize must be a positive integer.", array( "status" => 400 ) );
-		}
-		return array($firstElement, $pageSize);
-	} 
 
 	public function getLogEvents( WP_REST_Request $request ) {
 		try {
-			list($firstElement, $pageSize) = $this->extractPaginationParams($request);
-			return rest_ensure_response(  $this->integrationService->getEvents($firstElement, $pageSize));
-		} catch ( \Throwable $e ) {
-			return new WP_Error( 'rest_internal_error', $e->getMessage(), array( 'status' => 500 ) );
-		}
+			$queryDto = DTODeserializerValidator::getInstance()->deserializeAndValidate($request->get_query_params(), QueryJobsDto::class);
+			return rest_ensure_response(  $this->integrationService->getEvents( $queryDto->getQueryArgs() ));
+		} catch ( InvalidArgumentException $e ) {
+            return new WP_Error( 'rest_invalid_argument', $e->getMessage(), array( 'status' => 400 ) );
+        } catch ( \Throwable $e ) {
+            return new WP_Error( 'rest_internal_error', $e->getMessage(), array(
+                'status' => 500,
+                'trace' => $e->getTraceAsString()
+            ) );
+        }
 	}
 
 	public function get_integration_invoices(  WP_REST_Request $request ) {
 		try {
-			list($firstElement, $pageSize) = $this->extractPaginationParams($request);
-			$invoices = $this->integrationService->getIntegrationInvoices( $firstElement, $pageSize );
+            $queryDto = DTODeserializerValidator::getInstance()->deserializeAndValidate($request->get_query_params(), QueryDocumentsDto::class);
+			$invoices = $this->integrationService->getIntegrationInvoices( $queryDto->getQueryArgs() );
 			return rest_ensure_response( $invoices );
-		} catch ( \Throwable $e ) {
-			return new WP_Error( 'rest_internal_error', $e->getMessage(), array( 'status' => 500 ) );
-		}
+		} catch ( InvalidArgumentException $e ) {
+            return new WP_Error( 'rest_invalid_argument', $e->getMessage(), array( 'status' => 400 ) );
+        } catch ( \Throwable $e ) {
+            return new WP_Error( 'rest_internal_error', $e->getMessage(), array(
+                'status' => 500,
+                'trace' => $e->getTraceAsString()
+            ) );
+        }
 	}
 
 	public function get_integration_orders( WP_REST_Request $request ) {
 		try {
-			list($firstElement, $pageSize) = $this->extractPaginationParams($request);
-			$invoices = $this->integrationService->getIntegrationOrders( $firstElement, $pageSize );
+            $queryDto = DTODeserializerValidator::getInstance()->deserializeAndValidate($request->get_query_params(), QueryDocumentsDto::class);
+			$invoices = $this->integrationService->getIntegrationOrders( $queryDto->getQueryArgs() );
 			return rest_ensure_response( $invoices );
-		} catch ( \Throwable $e ) {
-			return new WP_Error( 'rest_internal_error', $e->getMessage(), array( 'status' => 500 ) );
-		}
+		} catch ( InvalidArgumentException $e ) {
+            return new WP_Error( 'rest_invalid_argument', $e->getMessage(), array( 'status' => 400 ) );
+        } catch ( \Throwable $e ) {
+            return new WP_Error( 'rest_internal_error', $e->getMessage(), array(
+                'status' => 500,
+                'trace' => $e->getTraceAsString()
+            ) );
+        }
 	}
 
 	public function update_integration_config( WP_REST_Request $request ) {
@@ -1008,6 +1014,10 @@ class StelVerifactuController {
             return new WP_REST_Response( [ "eventId" => $eventId ], WP_Http::OK );
         } catch ( InvalidArgumentException $e ) {
             return new WP_Error( 'rest_invalid_argument', $e->getMessage(), array( 'status' => 400 ) );
+        } catch (ExternalHttpException $httpException) {
+            return new WP_Error( $httpException->getErrorCode() ?? 'rest_internal_error', $httpException->getMessage(),
+                $httpException->toArray()
+            );
         } catch ( \Throwable $e ) {
             return new WP_Error( 'rest_internal_error', $e->getMessage(), array(
                 'status' => 500,

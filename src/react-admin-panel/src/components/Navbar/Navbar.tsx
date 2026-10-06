@@ -1,18 +1,19 @@
 import {
-  Icon,
-  IntegrationsThemeType,
-  Modal,
-  Navbar,
-  SimpleGrid,
+    Icon,
+    IntegrationsThemeType,
+    Modal,
+    Navbar,
+    SimpleGrid,
 } from "@stelsolutions/stelorder-catalog";
 import { NavbarItem } from "./NavbarItem";
 import React, { PropsWithChildren, useContext, useId, useState } from "react";
-import { useTheme } from "styled-components";
+import {useTheme} from "styled-components";
 import { RootContext } from "../../context/RootContext/RootContext.context";
 import { DeleteIntegration } from "../DeleteIntegration/DeleteIntegration";
 import { ErrorModal } from "../ErrorModal/ErrorModal";
 import { ResetConfiguration } from "../ResetConfiguration/ResetConfiguration";
 import { useTranslation } from "react-i18next";
+import {PluginAlert} from "../PluginAlert/PluginAlert.tsx";
 
 export const NavbarMenu: React.FC<PropsWithChildren> = ({children}) => {
   
@@ -31,7 +32,7 @@ export const NavbarMenu: React.FC<PropsWithChildren> = ({children}) => {
     <>
       <Navbar
         htmlProps={{
-          style: { width: "100%", boxSizing: "border-box" }
+          style: { width: "100%", boxSizing: "border-box"},
         }}
         options={{
           alignMessage: "left",
@@ -64,6 +65,7 @@ export const NavbarMenu: React.FC<PropsWithChildren> = ({children}) => {
             </Navbar.Tab>
           ))}
         </div>
+        <PluginAlert />
       </Navbar>
       <Modal
         showIn={root}

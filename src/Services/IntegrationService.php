@@ -110,14 +110,14 @@ class IntegrationService {
         return $this->stelService->getDocuments( $integration->getIntegrationId(), $integration->getPlatformId(), $integration->getToken() );
     }
 
-    public function getIntegrationInvoices(int $firstElement, int $pageSize) {
+    public function getIntegrationInvoices(array $params) {
         $integration = $this->integrationRepository->get();
-        return $this->stelService->getInvoices( $integration->getIntegrationId(), $integration->getPlatformId(), $integration->getToken(), $firstElement, $pageSize );
+        return $this->stelService->getInvoices( $integration->getIntegrationId(), $integration->getPlatformId(), $integration->getToken(), $params );
     }
 
-    public function getIntegrationOrders(int $firstElement, int $pageSize) {
+    public function getIntegrationOrders( array $params ) {
         $integration = $this->integrationRepository->get();
-        return $this->stelService->getOrders( $integration->getIntegrationId(), $integration->getPlatformId(), $integration->getToken(), $firstElement, $pageSize );
+        return $this->stelService->getOrders( $integration->getIntegrationId(), $integration->getPlatformId(), $integration->getToken(), $params );
     }
 
     public function getIntegrationConfiguration() {
@@ -179,9 +179,9 @@ class IntegrationService {
         );
     }
 
-    public function getEvents(int $firstElement = 0, int $lastElement = 30): array {
+    public function getEvents(array $queryVars): array {
         $integration = $this->integrationRepository->get();
-        return $this->stelService->getEvents($integration->getIntegrationId(), $integration->getToken(), $firstElement, $lastElement);
+        return $this->stelService->getEvents($integration->getIntegrationId(), $integration->getToken(), $queryVars);
     }
 
     public function deleteIntegration( string $integrationId ) {
@@ -706,7 +706,8 @@ class IntegrationService {
                     );
                 }, $persistentWebhooks
             );
-        }, function(IntegrationRepository $repository) use (&$persistentWebhooks, $integration) {
+         }, // @phpstan-ignore-next-line
+            function(IntegrationRepository $repository) use (&$persistentWebhooks, $integration) {
             // Si se produce una excepción, eliminamos los webhooks que se hayan creado en woocommerce y en el microservicio
             if ( empty($persistentWebhooks) ) return;
             // 1. Eliminamos las suscripciones del microservicio

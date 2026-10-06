@@ -8,7 +8,7 @@ class Utils {
     }
 
     public static function checkNotEmptyString( string $value ): bool {
-        return !empty(trim($value));
+        return !empty(trim($value, "\n\r\t\v\x00"));
     }
 
     public static function checkIsPositiveInt( int $value ): bool {

@@ -1,4 +1,7 @@
 {
+    "code": {
+        "no_fields_found": "No fields were found to sync. Please check the field settings in the Products section."
+    },
     "state": {
         "title": "Oops!",
         "subtitle": "We’ve detected a problem that may affect your experience.",
@@ -10,5 +13,14 @@
         "message2": "This page could not be loaded due to technical issues. Please try again later or ",
         "contact_support": "contact support.",
         "button": "Accept"
+    },
+    "plugin_alerts": {
+        "alerts": "Warning",
+        "modal": {
+            "message": "Some plugins may cause issues with the integration. Please review the following plugins and consider disabling them if you experience any problems",
+            "support_message": "Please make sure to disable the previous plugins before of ",
+            "support": "contact support.",
+            "button": "Accept"
+        }
     }
 }

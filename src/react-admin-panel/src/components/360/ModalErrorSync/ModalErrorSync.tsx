@@ -39,6 +39,7 @@ export function ModalErrorSync({ isOpen, closeModal, retrySync, canSync, isLoadi
                 setIsLoading(false);
             }, animationDuration * 1000);
         } else if (isLoadingRetry) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setIsLoading(true);
         }
         isLoadingRetryRef.current = isLoadingRetry;
@@ -162,7 +163,10 @@ export function ModalErrorSync({ isOpen, closeModal, retrySync, canSync, isLoadi
                                         height="16px"
                                         width="16px"
                                     />
-                                    {t("sync_error_modal.btn_retry")}
+                                    {
+                                        isLoadingRetry ? t('select_category_modal.btn_accept_loading') :
+                                        t("sync_error_modal.btn_retry")
+                                    }
                                 </Button>
                             </SimpleGrid.Item>
                         </SimpleGrid>

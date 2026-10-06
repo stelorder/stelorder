@@ -1,4 +1,7 @@
 {
+    "code": {
+        "no_fields_found": "No se encontraron campos para sincronizar. Por favor, revisa la configuración de campos en la sección de Productos."
+    },
     "state": {
         "title": "¡Ups!",
         "subtitle": "Hemos detectado un problema que puede afectar a tu experiencia.",
@@ -10,5 +13,14 @@
         "message2": "Esta página no ha podido cargar por problemas técnicos. Vuelve a intentarlo más tarde o ",
         "contact_support": "contacta con soporte.",
         "button": "Aceptar"
+    },
+    "plugin_alerts": {
+        "alerts": "Aviso",
+        "modal": {
+            "message": "Algunos plugins pueden causar problemas con la integración. Por favor, revisa los siguientes plugins y considera desactivarlos si experimentas algún problema",
+            "support_message": "Por favor, asegúrate de desactivar los plugins anteriores antes de ",
+            "support": "contactar con soporte.",
+            "button": "Aceptar"
+        }
     }
 }

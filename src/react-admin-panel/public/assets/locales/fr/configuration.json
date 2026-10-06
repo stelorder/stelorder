@@ -17,6 +17,9 @@
     }
   },
   "orders_section": {
+    "help": {
+      "sync_status": "Pour configurer la synchronisation des commandes, il est nécessaire de sélectionner les états de commande WooCommerce que vous souhaitez synchroniser.\n\nLorsqu'une commande WooCommerce se trouve dans un des états sélectionnés, elle sera automatiquement synchronisée avec STEL Order, générant le document correspondant : commande ou avoir, selon le type d'opération."
+    },
     "title": "Commandes",
     "auto_sync_toggle": "Synchronisation automatique :",
     "reference_label": "Référence des commandes",
@@ -24,6 +27,10 @@
     "sync_placeholder": "États dans lesquels la synchronisation est effectuée"
   },
   "invoices_section": {
+    "help": {
+      "sync_status": "Pour configurer la synchronisation des factures, il est nécessaire de sélectionner les états de commande WooCommerce que vous souhaitez synchroniser.\n\nLorsqu'une commande WooCommerce se trouve dans un des états sélectionnés, elle sera automatiquement synchronisée avec STEL Order, générant le document correspondant : facture ou avoir, selon le type d'opération.",
+      "send_method": "Cette section permet d'envoyer des factures par courriel aux clients de manière automatique.\n\nVeuillez noter que cette fonctionnalité est disponible uniquement pour les factures. Les commandes ne peuvent pas être envoyées par courriel depuis cette section."
+    },
     "title": "Factures",
     "auto_sync_toggle": "Synchronisation automatique :",
     "reference_label": "Référence de facture",
@@ -120,7 +127,8 @@
     "select_all": "Toutes les catégories",
     "search_placeholder": "Rechercher",
     "no_categories": "Aucune catégorie ne correspond à votre recherche",
-    "btn_accept": "Accepter",
+    "btn_accept": "Synchroniser",
+    "btn_accept_loading": "Synchronisation...",
     "products_no_sync": "produits sans synchronisation",
     "alert": {
       "1": "Le nombre maximal de produits pouvant être synchronisés est de",
@@ -147,15 +155,26 @@
       "message": "Synchronisation des produits ·"
     }
   },
+  "help": {
+    "products": "Lorsque vous activez la synchronisation automatique des produits, ceux-ci seront automatiquement synchronisés entre STEL Order et WooCommerce, selon la configuration des champs définie dans l'intégration.\n\nCela permet de maintenir les informations sur les produits à jour et synchronisées entre les deux plateformes.",
+    "orders": "Lorsque vous activez la synchronisation automatique des commandes, celles-ci seront automatiquement synchronisées depuis WooCommerce vers STEL Order, selon les états de commande de WooCommerce que vous avez sélectionnés dans les paramètres d'intégration.\n\nCela permet de maintenir les informations sur les commandes à jour dans STEL Order.",
+    "invoices": "Lorsque vous activez la synchronisation automatique des factures, celles-ci seront automatiquement synchronisées depuis WooCommerce vers STEL Order, y compris les factures et les avoirs, selon les états de commande de WooCommerce que vous avez sélectionnés dans les paramètres d'intégration."
+  },
   "product_sync_config": {
     "title": "Produits et Stock",
     "modal_btn": "Configuration des champs",
     "warehouse_label": "Sélection de l'entrepôt",
     "sync_fields": "champs synchronisés",
     "modal": {
+      "help": {
+        "stock": "Le champ de stock fonctionne différemment des autres champs, car sa synchronisation se fait uniquement dans un sens : de STEL Order vers WooCommerce.\n\nVous pouvez choisir entre un stock virtuel ou un stock réel, selon les besoins de votre intégration.\n\nGardez à l'esprit que les modifications apportées au stock dans WooCommerce ne seront pas synchronisées en retour vers STEL Order."
+      },
       "title": "Sélectionnez les champs à synchroniser",
       "btn": "Enregistrer",
       "fields" : {
+        "help": {
+          "selection": "La synchronisation avec WooCommerce est effectuée automatiquement pour les produits déjà publiés sur les deux plateformes, ainsi que pour les nouveaux produits qui sont publiés.\n\nPour définir quelles informations des produits sont synchronisées et dans quelle direction, il est nécessaire de configurer préalablement les champs de produit que l'on souhaite synchroniser."
+        },
         "values": {
           "real_stock": "Stock réel de Order",
           "virtual_stock": "Stock virtuel de Order",

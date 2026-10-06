@@ -170,9 +170,22 @@ class SpaConfig
         }
         $repository = IntegrationRepository::getInstance();
         $integration = $repository->get();
+        $all_plugins = get_plugins();
+        $active = get_option('active_plugins', []);
+        $active_plugins = [];
+        foreach ($all_plugins as $path => $plugin) {
+            if (!is_array($plugin) || !is_string($path) || !isset($plugin['Name'])) {
+                continue;
+            }
+            if (in_array($path, $active, true)) {
+
+                $active_plugins[] = ['slug' => $path, 'name' => $plugin['Name']];
+            }
+        }
         $data = array(
             'root' => esc_url_raw(rest_url()),
             'wpAdminUrl' => esc_url_raw(admin_url()),
+            'activePlugins' => $active_plugins,
             'stelServiceUrl' => StelService::STEL_API_MICROSERVICE_URL,
             'stelUrl' => StelService::STEL_INTEGRATIONS_URL,
             'pluginUrl' => STEL_VERIFACTU_PLUGIN_URL,

@@ -3,6 +3,7 @@ import {RootContext} from "../../../context/RootContext/RootContext.context.tsx"
 import {SelectOption} from "@stelsolutions/stelorder-catalog/dist/components/form/form-select/form-select-types";
 import {Button, Form, Icon, integrationsTheme, Modal, SimpleGrid} from "@stelsolutions/stelorder-catalog";
 import {useTranslation} from "react-i18next";
+import {HelpTooltip} from "../../HelpTooltip/HelpTooltip.tsx";
 
 export function ProductSyncModal({fields, updateConfig, isOpen, close}: {
     fields: { field_rule: string, direction: "TO_PRIMARY" | "TO_SECONDARY" | "BIDIRECTIONAL" }[];
@@ -12,6 +13,7 @@ export function ProductSyncModal({fields, updateConfig, isOpen, close}: {
 }) {
     const {root} = useContext(RootContext) || {root: document.body};
     const { t } = useTranslation("configuration");
+    const [modalRef, setModalRef] = useState<HTMLDivElement | null>(null);
 
 
     const STOCK_OPTIONS = [
@@ -141,6 +143,7 @@ export function ProductSyncModal({fields, updateConfig, isOpen, close}: {
                 showIn={root}
                 htmlProps={{
                     as: "section",
+                    ref: setModalRef,
                     style: {
                         maxWidth: "40vw",
                         minWidth: "550px",
@@ -243,6 +246,7 @@ export function ProductSyncModal({fields, updateConfig, isOpen, close}: {
                                                 >
                             <span
                                 style={{
+                                    display: "flex",
                                     width: "90%",
                                     color:
                                     integrationsTheme.colors.orderSecondary.orderSecondary80,
@@ -250,6 +254,11 @@ export function ProductSyncModal({fields, updateConfig, isOpen, close}: {
                                 }}
                             >
                               {values}
+                              {
+                                  category.includes("stock") && (
+                                      <HelpTooltip maxWidth={"35vw"} message={t("product_sync_config.modal.help.stock")} showIn={modalRef} alignMessage={"middle"}/>
+                                  )
+                              }
                             </span>
 
                                                     <Form.Group

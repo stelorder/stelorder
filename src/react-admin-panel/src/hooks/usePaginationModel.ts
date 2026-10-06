@@ -11,6 +11,7 @@ export function usePaginationModel<T extends {paginatedResult: PaginatedResult<u
     useFetchElement,
     defaultOptions,
     getFetchPaginatedData,
+    ...params
 }: {
     useFetchElement: (params: {
         handleData: (dataValue: T | null) => void;
@@ -18,20 +19,24 @@ export function usePaginationModel<T extends {paginatedResult: PaginatedResult<u
     } & Record<string, unknown>) => R;
     defaultOptions: SelectOption[];
     getFetchPaginatedData: (fetchResources: R) => (params: {firstElement: number; pageSize: number}) => Promise<T | null>;
-}) {
+} & Record<string, unknown>)  {
       const [paginationInfo, setPaginationInfo] = useState<{page: number; pageSize: number; totalPages: number} | undefined>();
       const navigate = useNavigate();
       const { data, isLoading, handleData, fetchResources  } = useLoaderFetcher({
         useFetchElement,
         onComplete: (data) => {
-            setPaginationInfo({page: 1, pageSize: Number(defaultOptions[0].value) || 1,
-                totalPages: calcTotalPages({ pageSize: Number(defaultOptions[0].value) || 1, totalItems: data?.paginatedResult?.totalResults || 0 }) });
+            setPaginationInfo((prev) => {
+                const pageSize = prev?.pageSize ?? (Number(defaultOptions[0].value) || 5)
+                return {page: 1, pageSize,
+                    totalPages: calcTotalPages({ pageSize, totalItems: data?.paginatedResult?.totalResults || 0 }) };
+            });
         },
         onError: () => {
           navigate("/error");
         },
         firstElement: 0,
-        pageSize: Number(defaultOptions[0].value) || 5,
+        pageSize: paginationInfo?.pageSize ?? (Number(defaultOptions[0].value) || 5),
+        ...params
       });
     
     
@@ -39,7 +44,7 @@ export function usePaginationModel<T extends {paginatedResult: PaginatedResult<u
         
         const per = Math.max(1, perPage);
         const total = data?.paginatedResult?.totalResults || 0;
-        const computedTotalPages = calcTotalPages({ pageSize: per, totalItems: total });
+        const prevComputedTotalPages = calcTotalPages({ pageSize: per, totalItems: total });
         
         try {
             const fetchPaginatedData = getFetchPaginatedData(fetchResources);
@@ -48,6 +53,9 @@ export function usePaginationModel<T extends {paginatedResult: PaginatedResult<u
               pageSize: per,
             })
             handleData(result);
+            const computedTotalPages = result?.paginatedResult?.totalResults != undefined ?
+                calcTotalPages({ pageSize: per, totalItems: result?.paginatedResult?.totalResults })
+                : prevComputedTotalPages;
             setPaginationInfo({page, pageSize: per, totalPages: result?.paginatedResult?.totalResults ? computedTotalPages : 1 });
             return { page, totalPages: computedTotalPages };
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -76,5 +84,6 @@ export function usePaginationModel<T extends {paginatedResult: PaginatedResult<u
         paginationInfo,
         paginationConfig,
         fetchAsyncData,
+        ...fetchResources
     };
 }

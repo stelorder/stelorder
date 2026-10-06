@@ -1,12 +1,11 @@
 import {
-  Badge,
+  Badge, Column,
   Icon,
-  IntegrationsThemeType,
-  PaginatedTable, Spinner,
+  IntegrationsThemeType, Pagination, SearchableColumn, SearchableTable, Spinner,
   Tooltip,
 } from "@stelsolutions/stelorder-catalog";
 import { useTheme, styled } from "styled-components";
-import { useContext, useId } from "react";
+import {useContext, useEffect, useId, useRef, useState} from "react";
 import { SelectOption } from "@stelsolutions/stelorder-catalog/dist/components/form/form-select/form-select-types";
 import { InvoiceData, PaginatedInvoicesResult, useFetchInvoices } from "../hooks/useFetchInvoices";
 import { parseDocumentDate } from "./utils/page-utils";
@@ -41,9 +40,14 @@ const TdPedido = styled.td`
 
 
 
-
+type SortDirection = 'asc' | 'desc';
+type SortField = "reference" | "creation-date" | "document-state-id";
 
 export default function InvoicesPage() {
+  const [sortDirection, setSortDirection] = useState<SortDirection|undefined>();
+  const [sortColumn, setSortColumn] = useState<SortField|undefined>();
+  const [debounceSearchReference, setDebounceSearchReference] = useState<string|undefined>();
+  const [searchReference, setSearchReference] = useState<string|undefined>();
   const { wpAdminUrl, stelServiceUrl, stelUrl } = useWpApiSettings();
   const { root } = useContext(RootContext) || { root: document.body };
   const theme = useTheme() as IntegrationsThemeType;
@@ -60,7 +64,40 @@ export default function InvoicesPage() {
     useFetchElement: useFetchInvoices,
     defaultOptions,
     getFetchPaginatedData: (fetchResources) => fetchResources.fetchPaginatedInvoicesData,
+    sortColumn: sortColumn,
+    sortDirection: sortDirection,
+    searchReference,
   });
+
+  const moveToRef = useRef<((page: number) => void) | null>(null);
+
+  useEffect(() => {
+    const debounce = setTimeout(() => {
+      setSearchReference(debounceSearchReference);
+    }, 1500)
+
+    return () => clearTimeout(debounce);
+  }, [debounceSearchReference]);
+
+  useEffect(() => {
+
+    if (!sortDirection && !sortColumn && !searchReference) return;
+    if (moveToRef.current) {
+      moveToRef.current(1);
+    }
+  }, [sortColumn, sortDirection, searchReference]);
+
+  const toggleSort = (field: SortField) => {
+    if (sortColumn !== field) {
+      setSortColumn(field);
+      setSortDirection("asc");
+    } else if (sortDirection === "asc") {
+      setSortDirection("desc");
+    } else {
+      setSortColumn(undefined);
+      setSortDirection(undefined);
+    }
+  }
 
   const { textStatus } = useTranslateDocumentState();
 
@@ -82,36 +119,52 @@ export default function InvoicesPage() {
             paddingBottom: "20px",
           }}
         >
-          <PaginatedTable
-            fetchData={fetchAsyncData}
-            elementsPerPage={defaultOptions}
-            paginationConfig={paginationConfig}
-            totalPages={paginationInfo?.totalPages || 1}
-            paginationText={{
-              paginationConfigText: {
-                listingTextTemplate: (firstElementPageNumber: number, lastElementPageNumber: number, lastElementNumber: number) => {
-                  const params = { from: firstElementPageNumber, to: lastElementPageNumber, count: lastElementNumber };
-                  const template = invoicesTranslation("pagination.elements_template")
-                  return templateHelper(template, params);
-                },
-                perPageText: invoicesTranslation("pagination.perPage"),
-              },
-              paginationControlText: {
-                firstPage: invoicesTranslation("pagination.first"),
-                lastPage: invoicesTranslation("pagination.last"),
-              }
-            }}
-          >
+          <SearchableTable>
             <thead>
               <tr>
-                <th style={{ width: "calc(100% / 8)" }}>{invoicesTranslation("columns.invoice_STEL")}</th>
-                <th style={{ width: "calc(100% / 8)" }}>{invoicesTranslation("columns.invoice_woocommerce")}</th>
-                <th style={{ width: "calc(100% / 8)" }}>{invoicesTranslation("columns.customer")}</th>
-                <th style={{ width: "calc(100% / 8)" }}>{invoicesTranslation("columns.status")}</th>
-                <th style={{ width: "calc(100% / 8)" }}>{invoicesTranslation("columns.date")}</th>
-                <th style={{ width: "calc(100% / 8)" }}>{invoicesTranslation("columns.amount")}</th>
-                <th style={{ width: "calc(100% / 8)" }}>{invoicesTranslation("columns.state_verifactu")}</th>
-                <th style={{ width: "calc(100% / 8)" }}>{invoicesTranslation("columns.view_details")}</th>
+                <SearchableColumn
+                    sortable
+                    sortDirection={sortColumn === "reference" ? sortDirection : null}
+                    onSort={() => toggleSort("reference")}
+                    onChange={setDebounceSearchReference}
+                    value={debounceSearchReference}
+                    htmlProps={{ style: { width: "calc(100% / 8)" }}}>
+                  {invoicesTranslation("columns.invoice_STEL")}
+                </SearchableColumn>
+                <Column
+                    htmlProps={{ style: { width: "calc(100% / 8)" }}}>
+                  {invoicesTranslation("columns.invoice_woocommerce")}
+                </Column>
+                <Column
+                    htmlProps={{ style: { width: "calc(100% / 8)" }}}>
+                  {invoicesTranslation("columns.customer")}
+                </Column>
+                <Column
+                    sortable
+                    onSort={() => toggleSort("document-state-id")}
+                    sortDirection={sortColumn === "document-state-id" ? sortDirection : null}
+                    htmlProps={{ style: { width: "calc(100% / 8)" }}}>
+                  {invoicesTranslation("columns.status")}
+                </Column>
+                <Column
+                    sortable
+                    onSort={() => toggleSort("creation-date")}
+                    sortDirection={sortColumn === "creation-date" ? sortDirection : null}
+                    htmlProps={{ style: { width: "calc(100% / 8)" }}}>
+                  {invoicesTranslation("columns.date")}
+                </Column>
+                <Column
+                    htmlProps={{ style: { width: "calc(100% / 8)" }}}>
+                  {invoicesTranslation("columns.amount")}
+                </Column>
+                <Column
+                    htmlProps={{ style: { width: "calc(100% / 8)" }}}>
+                  {invoicesTranslation("columns.state_verifactu")}
+                </Column>
+                <Column
+                    htmlProps={{ style: { width: "calc(100% / 8)" }}}>
+                  {invoicesTranslation("columns.view_details")}
+                </Column>
               </tr>
             </thead>
             <tbody>
@@ -272,7 +325,27 @@ export default function InvoicesPage() {
                 </tr>
               ))}
             </tbody>
-          </PaginatedTable>
+          </SearchableTable>
+          <Pagination fetchData={fetchAsyncData}
+                      movedToRef={moveToRef}
+                      elementsPerPage={defaultOptions}
+                      paginationConfig={paginationConfig}
+                      totalPages={paginationInfo?.totalPages || 1}
+                      paginationText={{
+                        paginationConfigText: {
+                          listingTextTemplate: (firstElementPageNumber: number, lastElementPageNumber: number, lastElementNumber: number) => {
+                            const params = { from: firstElementPageNumber, to: lastElementPageNumber, count: lastElementNumber };
+                            const template = invoicesTranslation("pagination.elements_template")
+                            return templateHelper(template, params);
+                          },
+                          perPageText: invoicesTranslation("pagination.perPage"),
+                        },
+                        paginationControlText: {
+                          firstPage: invoicesTranslation("pagination.first"),
+                          lastPage: invoicesTranslation("pagination.last"),
+                        }
+                      }}
+          />
         </section>
       )}
     </>

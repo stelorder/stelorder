@@ -1,1 +1,0 @@
-export declare const StyledSearchableTable: import('styled-components/dist/types').IStyledComponentBase<"web", import('styled-components').FastOmit<import('styled-components').FastOmit<import('react').DetailedHTMLProps<import('react').TableHTMLAttributes<HTMLTableElement>, HTMLTableElement>, never>, never>> & string;

@@ -1,4 +1,7 @@
 {
+    "code": {
+        "no_fields_found": "Aucun champ à synchroniser n'a été trouvé. Veuillez vérifier la configuration des champs dans la section Produits."
+    },
     "state": {
         "title": "Oups !",
         "subtitle": "Nous avons détecté un problème pouvant affecter votre expérience.",
@@ -10,5 +13,14 @@
         "message2": "Cette page n’a pas pu être chargée en raison de problèmes techniques. Veuillez réessayer plus tard ou ",
         "contact_support": "contactez le support.",
         "button": "Accepter"
+    },
+    "plugin_alerts": {
+        "alerts": "Avertissement",
+        "modal": {
+            "message": "Certains plugins peuvent causer des problèmes avec l’intégration. Veuillez examiner les plugins suivants et envisager de les désactiver si vous rencontrez des problèmes",
+            "support_message": "Assurez-vous de désactiver les plugins précédents avant de ",
+            "support": "contactez le support.",
+            "button": "Accepter"
+        }
     }
 }

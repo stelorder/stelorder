@@ -36,6 +36,7 @@ import {ProductConfig} from "../components/360/ProductConfig/ProductConfig.tsx";
 import SerialNumberUtils from "../utils/SerialNumberUtils.ts";
 import {SelectOption} from "@stelsolutions/stelorder-catalog/dist/components/form/form-select/form-select-types";
 import {useErrorContext} from "../context/ErrorContext/ErrorContext.tsx";
+import {HelpTooltip} from "../components/HelpTooltip/HelpTooltip.tsx";
 
 const invoiceLocationLabel = {
   NONE: (func: (key: string) => string) => func("invoices_section.location.none"),
@@ -185,7 +186,9 @@ export default function ConfigPage() {
   const { stelUrl } = useWpApiSettings();
   const navigate = useNavigate();
 
-  const { root } = useContext(RootContext) || { root: document.body };
+  const { root } = (useContext(RootContext) || { root: document.body }) as {
+    root: HTMLDivElement;
+  };
 
   const [defaultSnOptions, setDefaultSnOptions] = useState<DefaultSnOptions>({
     defaultOptionOrdersn: undefined,
@@ -345,6 +348,7 @@ export default function ConfigPage() {
                       >
                         {configTranslation("header.btn.edit_btn")}
                         {" "}
+                          {/* eslint-disable-next-line react-hooks/refs */}
                         {EditIcon.current}
                       </Button>
                       <Button
@@ -432,7 +436,10 @@ export default function ConfigPage() {
                           <SimpleGrid.Item col={2}>
                             <Form.Group>
                                 <Form.Checkbox
-                                    label={configTranslation("orders_section.auto_sync_toggle")}
+                                    label={<div style={{ display: "flex" }}>
+                                        {configTranslation("orders_section.auto_sync_toggle")}
+                                        <HelpTooltip message={configTranslation("help.orders")} maxWidth={"35vw"} alignMessage={"right"} showIn={root} />
+                                    </div> as unknown as string}
                                     type="switch"
                                     isInvalid={false}
                                     isValid={false}
@@ -549,7 +556,7 @@ export default function ConfigPage() {
                               <SimpleGrid.Item col={1}>
                                 <Form.Group
                                     htmlProps={{
-                                      style: { height: "100%" },
+                                      style: { height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between" },
                                     }}
                                 >
                                   <Form.Label
@@ -561,12 +568,19 @@ export default function ConfigPage() {
                                         },
                                       }}
                                   >
-                                    {configTranslation("orders_section.sync_status_label")}
+                                    <div style={{
+                                        display: "flex",
+                                    }}>
+                                        <span>
+                                            {configTranslation("orders_section.sync_status_label")}
+                                        </span>
+                                        <HelpTooltip message={configTranslation("orders_section.help.sync_status")} maxWidth={"35vw"} alignMessage="middle" showIn={root} />
+                                    </div>
                                   </Form.Label>
                                   <Button
                                       variant="gray"
                                       htmlProps={{
-                                        style: { width: "fit-content", height: "100%" },
+                                        style: { width: "fit-content", maxHeight: "28px" },
                                         disabled: isDisabled,
                                         type: "button",
                                         onClick: () => {
@@ -602,7 +616,10 @@ export default function ConfigPage() {
                                 }}
                             >
                               <Form.Checkbox
-                                  label={configTranslation("invoices_section.auto_sync_toggle")}
+                                  label={<div style={{ display: "flex" }}>
+                                      {configTranslation("invoices_section.auto_sync_toggle")}
+                                      <HelpTooltip message={configTranslation("help.invoices")} maxWidth={"35vw"} alignMessage={"right"} showIn={root} />
+                                  </div> as unknown as string}
                                   type="switch"
                                   isInvalid={false}
                                   isValid={false}
@@ -802,7 +819,14 @@ export default function ConfigPage() {
                                         },
                                       }}
                                   >
-                                    {configTranslation("invoices_section.send_method_label")}
+                                      <div style={{
+                                          display: "flex",
+                                      }}>
+                                        <span>
+                                            {configTranslation("invoices_section.send_method_label")}
+                                        </span>
+                                        <HelpTooltip message={configTranslation("invoices_section.help.send_method")} maxWidth={"35vw"} alignMessage="middle" showIn={root} />
+                                      </div>
                                   </Form.Label>
                                   <Form.Select
                                       defaultOption={{
@@ -860,7 +884,7 @@ export default function ConfigPage() {
                               <SimpleGrid.Item col={1}>
                                 <Form.Group
                                     htmlProps={{
-                                      style: { textAlign: "left", height: "100%" },
+                                      style: { textAlign: "left", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between" },
                                     }}
                                 >
                                   <Form.Label
@@ -873,14 +897,21 @@ export default function ConfigPage() {
                                         },
                                       }}
                                   >
-                                    {configTranslation("invoices_section.sync_status_label")}
+                                      <div style={{
+                                          display: "flex",
+                                      }}>
+                                        <span>
+                                            {configTranslation("invoices_section.sync_status_label")}
+                                        </span>
+                                          <HelpTooltip message={configTranslation("invoices_section.help.sync_status")} maxWidth={"35vw"} alignMessage="middle" showIn={root} />
+                                      </div>
                                   </Form.Label>
                                   <Button
                                       variant="gray"
                                       htmlProps={{
                                         style: {
                                           width: "fit-content",
-                                          height: "100%",
+                                          height: "28px",
                                         },
                                         disabled: isDisabled,
                                         type: "button",
@@ -1352,6 +1383,7 @@ export default function ConfigPage() {
                                                             style: { flex: "0 0 auto" },
                                                           }}
                                                       >
+                                                          {/* eslint-disable-next-line react-hooks/static-components */}
                                                         <LogoAgencia
                                                             style={{
                                                               width: "89px",

@@ -10,11 +10,13 @@ const ErrorModal: React.FC<{
     close: () => void;
     message: string;
     durationMs?: number;
+    support?: boolean;
 }> = ({
     message,
     isOpen,
-    close: show,
-    durationMs = 2500
+    close,
+    durationMs = 2500,
+    support = false,
 }) => {
     const { stelUrl } = useWpApiSettings();
     const { root } = useContext(RootContext) || { root: document.body };
@@ -24,13 +26,13 @@ const ErrorModal: React.FC<{
         let timer: ReturnType<typeof setTimeout>;
         if (isOpen) {
             timer = setTimeout(() => {
-                show();
+                close();
             }, durationMs);
         }
         return () => {
             if (timer) clearTimeout(timer);
         };
-    }, [isOpen, durationMs, show]);
+    }, [isOpen, durationMs, close]);
 
     return (
         <Modal
@@ -79,23 +81,27 @@ const ErrorModal: React.FC<{
             >
               <span>
                 {message}
-                <a
-                  href={`${stelUrl}/#deepLink=helpCenter`}
-                  target="_blank"
-                  style={{
-                    color: theme.colors.orderSecondary.orderSecondary100,
-                    textDecoration: "underline",
-                    cursor: "pointer",
-                    textDecorationStyle: "solid",
-                    textDecorationSkipInk: "none",
-                    textDecorationThickness: "auto",
-                    textUnderlineOffset: "auto",
-                    textUnderlinePosition: "from-font",
-                    fontWeight: 700,
-                  }}
-                >
-                  {errorTranslation("modal_error.contact_support")}
-                </a>
+                {
+                    support && (
+                        <a
+                            href={`${stelUrl}/#deepLink=helpCenter`}
+                            target="_blank"
+                            style={{
+                                color: theme.colors.orderSecondary.orderSecondary100,
+                                textDecoration: "underline",
+                                cursor: "pointer",
+                                textDecorationStyle: "solid",
+                                textDecorationSkipInk: "none",
+                                textDecorationThickness: "auto",
+                                textUnderlineOffset: "auto",
+                                textUnderlinePosition: "from-font",
+                                fontWeight: 700,
+                            }}
+                        >
+                            {errorTranslation("modal_error.contact_support")}
+                        </a>
+                    )
+                }
               </span>
               <Button
                 variant="gray"

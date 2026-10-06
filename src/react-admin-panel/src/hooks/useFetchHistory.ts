@@ -24,8 +24,14 @@ export type HistoryResult = {
     paginatedResult: PaginatedResult<EventData>;
 };
 
-function getTemplateUrl({ API_URL, firstElement, pageSize }: { API_URL: string; firstElement: number; pageSize: number; }) {
-    return `${API_URL}/events?firstElement=${firstElement}&pageSize=${pageSize}`;
+function getTemplateUrl({ API_URL, firstElement, pageSize, ...params }: { API_URL: string; firstElement: number; pageSize: number; } & Record<string, unknown>) {
+    return `${API_URL}/events?firstElement=${firstElement}&pageSize=${pageSize}${
+        Object.entries(params || {})
+            .filter(([, value]) => value !== undefined && value !== null)
+            .filter(([, value]) => Boolean(String(value).trim()) )
+            .map(([key, value]) => `&${key}=${value}`)
+            .join("")
+      }`;
 }
 
 export function useFetchHistory({
@@ -33,15 +39,19 @@ export function useFetchHistory({
   pageSize = 5,
   handleData,
   onError,
+  sortColumn,
+  sortDirection,
 }: {
   firstElement?: number;
   pageSize?: number;
   handleData: (dataValue: HistoryResult | null) => void;
   onError?: () => void;
+  sortColumn?: 'creationDateTime' | 'direction' | 'status';
+  sortDirection?: 'asc' | 'desc';
 }) {
   const endpoint = useMemo(() => {
-    return getTemplateUrl({ API_URL, firstElement, pageSize });
-  }, [firstElement, pageSize]);
+    return getTemplateUrl({ API_URL, firstElement, pageSize, sortBy: sortColumn, sortDirection });
+  }, [firstElement, pageSize, sortColumn, sortDirection]);
   const method = "GET";
 
   const fetchResources = useCreateFetchResources<HistoryResult>({
@@ -55,7 +65,7 @@ export function useFetchHistory({
   return {
     fetchHistoryData: fetchResources.fetchResourceData,
     fetchPaginatedHistoryData: ({firstElement, pageSize}: {firstElement: number; pageSize: number}) => {
-      const paginatedEndpoint = getTemplateUrl({ API_URL, firstElement, pageSize });
+      const paginatedEndpoint = getTemplateUrl({ API_URL, firstElement, pageSize, sortBy: sortColumn, sortDirection });
       return fetchResources.fetchData({
         endpoint: paginatedEndpoint,
         method,

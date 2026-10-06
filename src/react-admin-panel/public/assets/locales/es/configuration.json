@@ -10,6 +10,9 @@
     "status_active": "Integración activada"
   },
   "orders_section": {
+    "help": {
+      "sync_status": "Para configurar la sincronización de pedidos, es necesario seleccionar los estados de pedido de WooCommerce que se desean sincronizar.\n\nCuando un pedido de WooCommerce se encuentre en alguno de los estados seleccionados, este se sincronizará automáticamente y se creará como pedido en STEL Order"
+    },
     "title": "Pedidos",
     "auto_sync_toggle": "Sincronización automática:",
     "reference_label": "Referencia para pedidos",
@@ -24,6 +27,10 @@
     }
   },
   "invoices_section": {
+    "help": {
+      "sync_status": "Para configurar la sincronización de facturas, es necesario seleccionar los estados de pedido de WooCommerce que se desean sincronizar.\n\nCuando un pedido de WooCommerce se encuentre en alguno de los estados seleccionados, se sincronizará automáticamente con STEL Order, generando el documento correspondiente: factura o factura de abono, según el tipo de operación.",
+      "send_method": "Esta sección permite enviar facturas por correo electrónico a los clientes de forma automatica.\n\nTen en cuenta que esta funcionalidad está disponible únicamente para facturas. Los pedidos no pueden enviarse por email desde esta sección."
+    },
     "title": "Facturas",
     "auto_sync_toggle": "Sincronización automática:",
     "reference_label": "Referencia para facturas",
@@ -120,7 +127,8 @@
     "select_all": "Todas las categorías",
     "search_placeholder": "Buscar",
     "no_categories": "No hay categorías que coincidan con tu búsqueda",
-    "btn_accept": "Aceptar",
+    "btn_accept": "Sincronizar",
+    "btn_accept_loading": "Sincronizando...",
     "products_no_sync": "productos sin sincronizar",
     "alert": {
       "1": "El número máximo de productos que se pueden sincronizar es de",
@@ -147,15 +155,26 @@
       "message": "Sincronizando productos ·"
     }
   },
+  "help": {
+    "products": "Al activar la sincronización automática de productos, estos se sincronizarán de forma automática entre STEL Order y WooCommerce, según la configuración de campos definida en la integración.\n\nEsto permite mantener la información de los productos actualizada y sincronizada entre ambas plataformas.",
+    "orders": "Al activar la sincronización automática de pedidos, los pedidos se sincronizarán automáticamente desde WooCommerce hacia STEL Order, según los estados de pedido de WooCommerce que hayas seleccionado en la configuración de la integración.\n\nPermitiendo mantener la información de los pedidos actualizada en STEL Order.",
+    "invoices": "Al activar la sincronización automática de facturas, estas se sincronizarán automáticamente desde WooCommerce hacia STEL Order, incluyendo tanto facturas como facturas de abono, según los estados de pedido de WooCommerce seleccionados en la configuración de la integración."
+  },
   "product_sync_config": {
     "title": "Productos y Stock",
     "modal_btn": "Configuración de campos",
     "warehouse_label": "Selección de almacén",
     "sync_fields": "campos sincronizados",
     "modal": {
+      "help": {
+        "stock": "El campo de stock funciona de manera diferente al resto de campos, ya que su sincronización se realiza únicamente en una dirección: de STEL Order hacia WooCommerce.\n\nPuedes elegir entre stock virtual o stock real, según las necesidades de tu integración.\n\nTen en cuenta que los cambios realizados en el stock de WooCommerce no se sincronizarán de vuelta a STEL Order."
+      },
       "title": "Selecciona los campos a sincronizar",
       "btn": "Guardar",
       "fields" : {
+        "help": {
+          "selection": "La sincronización con WooCommerce se realiza automáticamente para los productos que ya están publicados en ambas plataformas, así como para los nuevos productos que se publiquen.\n\nPara definir qué información de los productos se sincroniza y en qué dirección, es necesario configurar previamente los campos de producto que se desean sincronizar."
+        },
         "values": {
           "real_stock": "Stock real de Order",
           "virtual_stock": "Stock virtual de Order",

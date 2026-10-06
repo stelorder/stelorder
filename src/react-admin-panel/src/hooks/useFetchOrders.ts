@@ -24,12 +24,19 @@ function getTemplateUrl({
   API_URL,
   firstElement,
   pageSize,
+  ...queryVars
 }: {
   API_URL: string;
   firstElement: number;
   pageSize: number;
-}) {
-  return `${API_URL}/integrations/orders?firstElement=${firstElement}&pageSize=${pageSize}`;
+} & Record<string, unknown>) {
+  return `${API_URL}/integrations/orders?firstElement=${firstElement}&pageSize=${pageSize}${
+    Object.entries(queryVars || {})
+        .filter(([, value]) => value !== undefined && value !== null)
+        .filter(([, value]) => Boolean(String(value).trim()) )
+        .map(([key, value]) => `&${key}=${String(value).trim()}`)
+      .join("")
+  }`;
 }
 
 export function useFetchOrders({
@@ -37,15 +44,28 @@ export function useFetchOrders({
   pageSize = 5,
   handleData,
   onError,
+  sortColumn,
+  sortDirection,
+  searchReference,
 }: {
   firstElement?: number;
   pageSize?: number;
   handleData: (dataValue: PaginatedOrdersResult | null) => void;
   onError?: () => void;
+  sortColumn?: "reference" | "creation-date" | "document-status-id";
+  sortDirection?: "asc" | "desc";
+  searchReference?: string;
 }) {
   const endpoint = useMemo(() => {
-    return getTemplateUrl({ API_URL, firstElement, pageSize });
-  }, [firstElement, pageSize]);
+    return getTemplateUrl({
+      API_URL,
+      firstElement,
+      pageSize,
+      sortBy: sortColumn,
+      sortDirection,
+      reference: searchReference,
+    });
+  }, [firstElement, pageSize, sortColumn, sortDirection, searchReference]);
   const method = "GET";
 
   const fetchResources = useCreateFetchResources<PaginatedOrdersResult>({
@@ -58,7 +78,14 @@ export function useFetchOrders({
   return {
     fetchOrdersData: fetchResources.fetchResourceData,
     fetchPaginatedOrdersData: ({firstElement, pageSize}: {firstElement: number; pageSize: number}) => {
-      const paginatedEndpoint = getTemplateUrl({ API_URL, firstElement, pageSize });
+      const paginatedEndpoint = getTemplateUrl({
+        API_URL,
+        firstElement,
+        pageSize,
+        sortBy: sortColumn,
+        sortDirection,
+        reference: searchReference,
+      });
       return fetchResources.fetchData({
         endpoint: paginatedEndpoint,
         method,

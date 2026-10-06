@@ -17,6 +17,9 @@
     }
   },
   "orders_section": {
+    "help": {
+      "sync_status": "To configure order synchronization, it is necessary to select the WooCommerce order statuses you wish to synchronize.\n\nWhen a WooCommerce order is in any of the selected statuses, it will be automatically synchronized and created as an order in STEL Order"
+    },
     "title": "Orders",
     "auto_sync_toggle": "Automatic synchronization:",
     "reference_label": "Order reference",
@@ -24,6 +27,10 @@
     "sync_placeholder": "Statuses in which it is synchronized"
   },
   "invoices_section": {
+    "help": {
+      "sync_status": "To configure invoice synchronization, it is necessary to select the WooCommerce order statuses you wish to synchronize.\n\nWhen a WooCommerce order is in any of the selected statuses, it will be automatically synchronized with STEL Order, generating the corresponding document: invoice or credit note, depending on the type of operation.",
+      "send_method": "This section allows you to send invoices by email to customers automatically.\n\nPlease note that this feature is available only for invoices. Orders cannot be sent by email from this section."
+    },
     "title": "Invoices",
     "auto_sync_toggle": "Automatic synchronization:",
     "reference_label": "Invoice reference",
@@ -120,7 +127,8 @@
     "select_all": "All categories",
     "search_placeholder": "Search",
     "no_categories": "No categories match your search",
-    "btn_accept": "Accept",
+    "btn_accept": "Synchronize",
+    "btn_accept_loading": "Synchronizing...",
     "products_no_sync": "products without synchronization",
     "alert": {
       "1": "The maximum number of products that can be synchronised is",
@@ -147,15 +155,26 @@
       "message": "Synchronizing products ·"
     }
   },
+  "help": {
+    "products": "When you enable automatic product synchronization, the products will be automatically synchronized between STEL Order and WooCommerce, according to the field configuration defined in the integration.\n\nThis allows you to keep the product information updated and synchronized between both platforms.",
+    "orders": "When you enable automatic order synchronization, the orders will be automatically synchronized from WooCommerce to STEL Order, according to the order statuses in WooCommerce that you have selected in the integration settings.\n\nThis allows you to keep the order information updated in STEL Order.",
+    "invoices": "When you enable automatic invoice synchronization, the invoices will be automatically synchronized from WooCommerce to STEL Order, including both invoices and credit notes, according to the order statuses in WooCommerce that you have selected in the integration settings."
+  },
   "product_sync_config": {
     "title": "Products And Stock",
     "modal_btn": "Field Configuration",
     "warehouse_label": "Warehouse Selection",
     "sync_fields": "Synchronized Fields",
     "modal": {
+      "help": {
+        "stock": "The stock field works differently from the other fields, as its synchronization is only performed in one direction: from STEL Order to WooCommerce.\n\nYou can choose between virtual stock or real stock, depending on your integration needs.\n\nKeep in mind that changes made to the stock in WooCommerce will not be synchronized back to STEL Order."
+      },
       "title": "Select the fields to synchronize",
       "btn": "Save",
       "fields" : {
+        "help": {
+          "selection": "The synchronization with WooCommerce is performed automatically for the products that are already published on both platforms, as well as for the new products that are published.\n\nTo define what information of the products is synchronized and in which direction, it is necessary to configure previously the product fields that are desired to be synchronized."
+        },
         "values": {
           "real_stock": "Real stock of Order",
           "virtual_stock": "Virtual stock of Order",

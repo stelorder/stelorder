@@ -1,4 +1,9 @@
 {
+  "help": {
+    "columns": {
+      "subjobs": "Subjobs are small tasks that are performed automatically as part of a main job.\n\nFor example, when creating an order, it may be necessary to perform other tasks, such as creating or synchronizing the products and customers related to that order.\n\nThese tasks are executed automatically to complete the main process correctly.\n"
+    }
+  },
   "empty_table": "No jobs in history.",
   "filters": {
     "global_search": "Search",
